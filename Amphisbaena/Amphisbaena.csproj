@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Amphisbaena.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>System.Threading.Channels extensions</Description>
+    <RepositoryUrl>https://github.com/Dmitry-Bychenko/Amphisbaena</RepositoryUrl>
+    <RepositoryType>Library</RepositoryType>
+    <Authors>Dmitry Bychenko</Authors>
+    <Product />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>
