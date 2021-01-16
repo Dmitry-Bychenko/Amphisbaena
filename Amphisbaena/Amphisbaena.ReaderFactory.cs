@@ -60,7 +60,7 @@ namespace Amphisbaena {
       Task.Run(async () => {
         try {
           foreach (T item in source)
-            await channel.Writer.WriteAsync(item, token);
+            await channel.Writer.WriteAsync(item, token).ConfigureAwait(false);
 
           channel.Writer.Complete();
         }
@@ -130,7 +130,7 @@ namespace Amphisbaena {
       Task.Run(async () => {
         try {
           await foreach (T item in source.WithCancellation(token).ConfigureAwait(false))
-            await channel.Writer.WriteAsync(item, token);
+            await channel.Writer.WriteAsync(item, token).ConfigureAwait(false);
 
           channel.Writer.Complete();
         }

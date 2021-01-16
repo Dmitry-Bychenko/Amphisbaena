@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using System.Threading;
@@ -25,8 +24,8 @@ namespace Amphisbaena.Linq {
     /// <param name="reader">Reader</param>
     /// <param name="bufferSize">Buffer Size</param>
     /// <param name="token">Cancellation Token</param>
-    public static ChannelReader<T> Buffered<T>(this ChannelReader<T> reader, 
-                                                    int bufferSize, 
+    public static ChannelReader<T> Buffered<T>(this ChannelReader<T> reader,
+                                                    int bufferSize,
                                                     CancellationToken token) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -42,8 +41,8 @@ namespace Amphisbaena.Linq {
       Channel<T> result = Channel.CreateBounded<T>(options);
 
       Task.Run(async () => {
-        await foreach(T item in reader.ReadAllAsync(token).WithCancellation(token).ConfigureAwait(false)) {
-          await result.Writer.WriteAsync(item, token);
+        await foreach (T item in reader.ReadAllAsync(token).WithCancellation(token).ConfigureAwait(false)) {
+          await result.Writer.WriteAsync(item, token).ConfigureAwait(false);
         }
 
         result.Writer.Complete();

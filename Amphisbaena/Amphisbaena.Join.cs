@@ -46,7 +46,7 @@ namespace Amphisbaena {
       Task.Run(async () => {
         async Task WriterTask(ChannelReader<T> reader) {
           await foreach (T item in reader.ReadAllAsync().WithCancellation(token).ConfigureAwait(false))
-            await result.Writer.WriteAsync(item, token);
+            await result.Writer.WriteAsync(item, token).ConfigureAwait(false);
         }
 
         await Task.WhenAll(source.Select(reader => WriterTask(reader)).ToArray());
@@ -86,7 +86,7 @@ namespace Amphisbaena {
     /// <param name="others">Readers to Merge</param>
     /// <param name="token">Cancellation token</param>
     /// <returns></returns>
-    public static ChannelReader<T> Merge<T>(this ChannelReader<T> reader, 
+    public static ChannelReader<T> Merge<T>(this ChannelReader<T> reader,
                                                  IEnumerable<ChannelReader<T>> others,
                                                  CancellationToken token) {
       if (reader is null)
