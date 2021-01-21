@@ -49,20 +49,12 @@ namespace Amphisbaena {
         .Select(i => Executor(readers[i].Reader))
         .ToArray();
 
+      var balancer = op.CreateBalancer(readers);
+
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-        int minCount = 0;
-        int minIndex = -1;
+        var actor = balancer.NextActor();
 
-        for (int i = 0; i < readers.Length; ++i) {
-          int actualCount = readers[i].Reader.Count;
-
-          if (minIndex < 0 || minCount > actualCount) {
-            minCount = actualCount;
-            minIndex = i;
-          }
-        }
-
-        await readers[minIndex].Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+        await actor.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
       }
 
       foreach (var item in readers)
