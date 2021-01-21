@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Channels;
 
@@ -31,7 +32,10 @@ namespace Amphisbaena {
 
         return Channel.CreateBounded<T>(ops);
       }
-    } 
+    }
+
+    internal Balancer<Channel<T>> CreateBalancer<T>(IEnumerable<Channel<T>> actors) => BalancingStrategy
+      .Create<Channel<T>>(actors, channel => channel.Reader.Count);
 
     #endregion Algorithm
 

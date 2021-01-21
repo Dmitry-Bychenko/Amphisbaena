@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
-using System.Threading.Channels;
 
 namespace Amphisbaena {
 
@@ -24,6 +24,10 @@ namespace Amphisbaena {
     /// </summary>
     Even = 1,
     /// <summary>
+    /// Random
+    /// </summary>
+    Random = 2,
+    /// <summary>
     /// Default (Round Robin)
     /// </summary>
     Default = RoundRobin
@@ -32,7 +36,7 @@ namespace Amphisbaena {
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
-  /// Channel Balance Strategy Extensions
+  /// Channel Balance Strategy
   /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
@@ -40,18 +44,16 @@ namespace Amphisbaena {
   public static class ChannelBalancerStrategyExtensions {
     #region Public
 
-    /// <summary>
-    /// Create Balancer
-    /// </summary>
-    public static ChannelBalancer<T> Create<T>(this ChannelBalancerStrategy strategy, IEnumerable<Channel<T>> actors) {
-      if (actors is null)
-        throw new ArgumentNullException(nameof(actors));
-
+    public static Balancer<T> Create<T>(this ChannelBalancerStrategy strategy,
+                                             IEnumerable<T> actors,
+                                             Func<T, double> load) {
       return strategy switch {
-        ChannelBalancerStrategy.Even => new ChannelEvenBalancer<T>(actors),
-        ChannelBalancerStrategy.RoundRobin => new ChannelRoundRobinBalancer<T>(actors),
-        _ => new ChannelRoundRobinBalancer<T>(actors)
+        ChannelBalancerStrategy.Even => new EvenBalancer<T>(actors, load),
+        ChannelBalancerStrategy.RoundRobin => new RoundRobinBalancer<T>(actors, load),
+        ChannelBalancerStrategy.Random => new RandomBalancer<T>(actors, load),
+        _ => new RandomBalancer<T>(actors, load)
       };
+
     }
 
     #endregion Public
@@ -60,35 +62,46 @@ namespace Amphisbaena {
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
-  /// Abstract Channel Balancer
+  /// Balancer (abstract)
   /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  public abstract class ChannelBalancer<T> {
+  public abstract class Balancer<T> {
     #region Private Data
 
-    private List<Channel<T>> m_Actors;
+    private readonly List<T> m_Actors;
+
+    private readonly Func<T, double> m_Load;
 
     #endregion Private Data
 
     #region Algorithm
 
     /// <summary>
-    /// Actors
+    /// Available actors
     /// </summary>
-    protected IReadOnlyList<Channel<T>> Actors => m_Actors;
+    protected IReadOnlyList<T> Actors => m_Actors;
+
+    /// <summary>
+    /// Load of each actor 
+    /// </summary>
+    protected double Load(T actor) => m_Load(actor);
 
     #endregion Algorithm
 
     #region Create
 
     /// <summary>
-    /// Standard Constructor
+    /// Standard constructor
     /// </summary>
-    public ChannelBalancer(IEnumerable<Channel<T>> actors) {
+    /// <param name="actors">actors</param>
+    /// <param name="load">actor's load</param>
+    public Balancer(IEnumerable<T> actors, Func<T, double> load) {
       if (actors is null)
         throw new ArgumentNullException(nameof(actors));
+
+      m_Load = load ?? throw new ArgumentNullException(nameof(load));
 
       m_Actors = actors
         .Where(actor => actor is object)
@@ -104,9 +117,9 @@ namespace Amphisbaena {
     #region Public
 
     /// <summary>
-    /// Next Channel To assign the work to
+    /// Next Actor 
     /// </summary>
-    public abstract Channel<T> Next();
+    public abstract T NextActor();
 
     #endregion Public
   }
@@ -119,36 +132,30 @@ namespace Amphisbaena {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  public sealed class ChannelRoundRobinBalancer<T> : ChannelBalancer<T> {
+  public sealed class RoundRobinBalancer<T> : Balancer<T> {
     #region Private Data
 
-    private int m_Next;
+    private long m_Index;
 
     #endregion Private Data
 
     #region Create
 
     /// <summary>
-    /// Standard constructor
+    /// Standard Constructor
     /// </summary>
-    public ChannelRoundRobinBalancer(IEnumerable<Channel<T>> actors)
-      : base(actors) { }
+    public RoundRobinBalancer(IEnumerable<T> actors, Func<T, double> load)
+      : base(actors, load) { }
 
     #endregion Create
 
     #region Public
 
     /// <summary>
-    /// Next channel the chunk of work to be assigned
+    /// Next Actor
     /// </summary>
-    /// <returns></returns>
-    public override Channel<T> Next() {
-      unchecked {
-        int next = (Actors.Count + Interlocked.Increment(ref m_Next) % Actors.Count) % Actors.Count;
-
-        return Actors[next];
-      }
-    }
+    public override T NextActor() =>
+      Actors[(int)(Interlocked.Increment(ref m_Index) % Actors.Count)];
 
     #endregion Public
   }
@@ -157,41 +164,89 @@ namespace Amphisbaena {
   //
   /// <summary>
   /// Even Balancer
-  /// <summary>
+  /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  public sealed class ChannelEvenBalancer<T> : ChannelBalancer<T> {
+  public sealed class EvenBalancer<T> : Balancer<T> {
     #region Create
 
     /// <summary>
-    /// Standard constructor
+    /// Standard Constructor
     /// </summary>
-    public ChannelEvenBalancer(IEnumerable<Channel<T>> actors)
-      : base(actors) { }
+    public EvenBalancer(IEnumerable<T> actors, Func<T, double> load)
+      : base(actors, load) { }
 
     #endregion Create
 
     #region Public
 
     /// <summary>
-    /// Next channel the chunk of work to be assigned
+    /// Next Actor
     /// </summary>
-    public override Channel<T> Next() {
-      Channel<T> result = null;
-      int minWorkLoad = -1;
+    public override T NextActor() {
+      double min = double.MaxValue;
+      T result = default;
 
       for (int i = Actors.Count - 1; i >= 0; --i) {
-        int load = Actors[i].Reader.Count;
+        T actor = Actors[i];
+        double load = Load(actor);
 
-        if (result == null || minWorkLoad < load) {
-          minWorkLoad = load;
-          result = Actors[i];
+        if (load < min) {
+          min = load;
+          result = actor;
         }
       }
 
       return result;
     }
+
+    #endregion Public
+  }
+
+  //-------------------------------------------------------------------------------------------------------------------
+  //
+  /// <summary>
+  /// Random Balancer
+  /// </summary>
+  //
+  //-------------------------------------------------------------------------------------------------------------------
+
+  public sealed class RandomBalancer<T> : Balancer<T> {
+    #region Private Data
+
+    private static readonly ThreadLocal<Random> s_Random = new ThreadLocal<Random>(() => {
+      int seed;
+
+      using (RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider()) {
+        byte[] seedData = new byte[sizeof(int)];
+
+        provider.GetBytes(seedData);
+
+        seed = BitConverter.ToInt32(seedData, 0);
+      }
+
+      return new Random(seed);
+    });
+
+    #endregion Private Data
+
+    #region Create
+
+    /// <summary>
+    /// Standard Constructor
+    /// </summary>
+    public RandomBalancer(IEnumerable<T> actors, Func<T, double> load)
+      : base(actors, load) { }
+
+    #endregion Create
+
+    #region Public
+
+    /// <summary>
+    /// Next Actor Selector
+    /// </summary>
+    public override T NextActor() => Actors[s_Random.Value.Next(0, Actors.Count)];
 
     #endregion Public
   }

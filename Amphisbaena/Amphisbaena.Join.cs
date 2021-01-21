@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -15,14 +13,14 @@ namespace Amphisbaena {
   /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
-  
+
   public static class ChannelReaderJoin {
     #region Public
 
     /// <summary>
     /// Join Readers
     /// </summary>
-    public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers, 
+    public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers,
                                                 ChannelParallelOptions options) {
       if (readers is null)
         throw new ArgumentNullException(nameof(readers));

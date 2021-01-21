@@ -1,13 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Amphisbaena.Tests {
-  
+
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
@@ -27,7 +24,7 @@ namespace Amphisbaena.Tests {
     public async Task ForAllSumOfSquares() {
       long[] data = Enumerable
         .Range(1, 1000)
-        .Select(i => (long) i)
+        .Select(i => (long)i)
         .ToArray();
 
       long expected = data

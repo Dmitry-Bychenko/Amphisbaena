@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-
-using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -21,7 +19,7 @@ namespace Amphisbaena {
     /// <summary>
     /// Split into several readers
     /// </summary>
-    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source, 
+    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source,
                                                    ChannelParallelOptions options) {
       if (source is null)
         throw new ArgumentNullException(nameof(source));
@@ -41,10 +39,10 @@ namespace Amphisbaena {
         .ToArray();
 
       Task.Run(async () => {
-        var balancer = op.BalancingStrategy.Create(result);
+        var balancer = op.CreateBalancer(result);
 
         await foreach (var item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-          Channel<T> channel = balancer.Next();
+          Channel<T> channel = balancer.NextActor();
 
           await channel.Writer.WriteAsync(item).ConfigureAwait(false);
         }

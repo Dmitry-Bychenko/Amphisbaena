@@ -1,12 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Amphisbaena.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
-using Amphisbaena;
-using Amphisbaena.Linq;
 
 namespace Amphisbaena.Tests {
 
@@ -57,9 +55,10 @@ namespace Amphisbaena.Tests {
       var token = cts.Token;
 
       try {
-        var channel = data.ToChannelReader(new ChannelParallelOptions() { 
-          CancellationToken = token, 
-          Capacity = bufferSize}); //  (bufferSize, token);
+        var channel = data.ToChannelReader(new ChannelParallelOptions() {
+          CancellationToken = token,
+          Capacity = bufferSize
+        }); //  (bufferSize, token);
 
         await foreach (var item in channel.ReadAllAsync(token)) {
           result.Add(item);

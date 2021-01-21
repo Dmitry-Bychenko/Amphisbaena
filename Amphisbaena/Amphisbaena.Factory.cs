@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -33,7 +30,7 @@ namespace Amphisbaena {
     /// <summary>
     /// To Channel Reader
     /// </summary>
-    public static ChannelReader<T> ToChannelReader<T>(this IEnumerable<T> source, 
+    public static ChannelReader<T> ToChannelReader<T>(this IEnumerable<T> source,
                                                            ChannelParallelOptions options) {
       if (source is null)
         throw new ArgumentNullException(nameof(source));
@@ -48,13 +45,13 @@ namespace Amphisbaena {
 
       Task.Run(async () => {
         try {
-          foreach (T item in source) 
+          foreach (T item in source)
             await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
         finally {
           result.Writer.TryComplete();
         }
-      }, 
+      },
       op.CancellationToken);
 
       return result.Reader;
