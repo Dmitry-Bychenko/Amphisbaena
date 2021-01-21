@@ -69,6 +69,53 @@ namespace Amphisbaena {
     public static async Task ForAll<T>(this ChannelReader<T> reader, Action<T> action) =>
       await ForAll(reader, action, null);
 
+    /// <summary>
+    /// For Each (Parallelized Select) 
+    /// </summary>
+    public static ChannelReader<T> ForEach<S, T>(this ChannelReader<S> reader,
+                                                      Func<S, T> action,
+                                                      ChannelParallelOptions options) {
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
+      if (action is null)
+        throw new ArgumentNullException(nameof(action));
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      Channel<T> result = op.CreateChannel<T>();
+
+      Task.Run(async () => {
+        async Task Executor() {
+          await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+            T target = action(item);
+
+            await result.Writer.WriteAsync(target).ConfigureAwait(false);
+          }
+        }
+
+        var executors = Enumerable
+          .Range(0, op.DegreeOfParallelism)
+          .Select(_x => Executor())
+          .ToArray();
+
+        await Task.WhenAll(executors).ConfigureAwait(false);
+
+        result.Writer.TryComplete();
+      }, op.CancellationToken);
+
+      return result.Reader;
+    }
+
+    /// <summary>
+    /// For Each (Parallelized Select) 
+    /// </summary>
+    public static ChannelReader<T> ForEach<S, T>(this ChannelReader<S> reader, Func<S, T> action) =>
+      ForEach(reader, action, null);
+
     #endregion Public
   }
 
