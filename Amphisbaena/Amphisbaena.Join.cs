@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -11,25 +11,27 @@ namespace Amphisbaena {
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
-  /// Joining several Channel Readers into one 
+  /// Join (Attach) Channel Readers
   /// </summary>
-  // 
+  //
   //-------------------------------------------------------------------------------------------------------------------
-
+  
   public static class ChannelReaderJoin {
     #region Public
 
     /// <summary>
-    /// Join Several Channel Readers into one 
+    /// Join Readers
     /// </summary>
-    /// <param name="readers">Readers to join</param>
-    /// <param name="token">Cancellation Token</param>
-    /// <returns></returns>
-    public static ChannelReader<T> Join<T>(IEnumerable<ChannelReader<T>> readers, CancellationToken token) {
+    public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers, 
+                                                ChannelParallelOptions options) {
       if (readers is null)
         throw new ArgumentNullException(nameof(readers));
 
-      token.ThrowIfCancellationRequested();
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
 
       ChannelReader<T>[] source = readers
         .Where(reader => reader is not null)
@@ -41,92 +43,69 @@ namespace Amphisbaena {
       if (source.Length == 1)
         return source[0];
 
-      Channel<T> result = Channel.CreateUnbounded<T>();
+      Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
         async Task WriterTask(ChannelReader<T> reader) {
-          await foreach (T item in reader.ReadAllAsync().WithCancellation(token).ConfigureAwait(false))
-            await result.Writer.WriteAsync(item, token).ConfigureAwait(false);
+          await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
+            await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
 
-        await Task.WhenAll(source.Select(reader => WriterTask(reader)).ToArray());
+        await Task.WhenAll(source.Select(reader => WriterTask(reader)).ToArray()).ConfigureAwait(false);
 
-        result.Writer.Complete();
-      }, token);
+        result.Writer.TryComplete();
+      }, op.CancellationToken);
 
-      return result;
+      return result.Reader;
     }
 
     /// <summary>
-    /// Join Several Channel Readers into one 
+    /// Join Readers
     /// </summary>
-    /// <param name="readers">Readers to join</param>
-    /// <returns></returns>
-    public static ChannelReader<T> Join<T>(IEnumerable<ChannelReader<T>> readers) =>
-      Join(readers, default);
-
-    #endregion Public
-  }
-
-  //-------------------------------------------------------------------------------------------------------------------
-  //
-  /// <summary>
-  /// Channel Reader Extensions
-  /// </summary>
-  //
-  //-------------------------------------------------------------------------------------------------------------------
-
-  public static partial class ChannelReaderExtensions {
-    #region Public
+    public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers) =>
+      Join(readers, null);
 
     /// <summary>
-    /// Merge Channel Reader with others
+    /// Attach 
     /// </summary>
-    /// <param name="reader">Reader</param>
-    /// <param name="others">Readers to Merge</param>
-    /// <param name="token">Cancellation token</param>
-    /// <returns></returns>
-    public static ChannelReader<T> Merge<T>(this ChannelReader<T> reader,
-                                                 IEnumerable<ChannelReader<T>> others,
-                                                 CancellationToken token) {
-      if (reader is null)
-        throw new ArgumentNullException(nameof(reader));
-      if (others is null)
-        throw new ArgumentNullException(nameof(others));
+    public static ChannelReader<T> Attach<T>(this ChannelReader<T> source,
+                                                  IEnumerable<ChannelReader<T>> readers,
+                                                  ChannelParallelOptions options) {
+      if (source is null)
+        throw new ArgumentNullException(nameof(source));
+      if (readers is null)
+        throw new ArgumentNullException(nameof(readers));
 
-      return ChannelReaderJoin.Join(new ChannelReader<T>[] { reader }.Concat(others), token);
+      return Join(new ChannelReader<T>[] { source }.Concat(readers), options);
     }
 
     /// <summary>
-    /// Merge Channel Reader with others
+    /// Attach 
     /// </summary>
-    /// <param name="reader">Reader</param>
-    /// <param name="others">Readers to Merge</param>
-    /// <returns></returns>
-    public static ChannelReader<T> Merge<T>(this ChannelReader<T> reader, IEnumerable<ChannelReader<T>> others) =>
-      Merge(reader, others, default);
+    public static ChannelReader<T> Attach<T>(this ChannelReader<T> source,
+                                                  IEnumerable<ChannelReader<T>> readers) =>
+      Attach(source, readers, null);
 
     /// <summary>
-    /// Merge Channel Reader with others
+    /// Attach 
     /// </summary>
-    /// <param name="reader">Reader</param>
-    /// <param name="others">Readers to Merge</param>
-    /// <param name="token">Cancellation token</param>
-    /// <returns></returns>
-    public static ChannelReader<T> Merge<T>(this ChannelReader<T> reader,
-                                                 CancellationToken token,
-                                          params ChannelReader<T>[] others) =>
-      Merge(reader, others, token);
+    public static ChannelReader<T> Attach<T>(this IEnumerable<ChannelReader<T>> source,
+                                                  IEnumerable<ChannelReader<T>> readers,
+                                                  ChannelParallelOptions options) {
+      if (source is null)
+        throw new ArgumentNullException(nameof(source));
+      if (readers is null)
+        throw new ArgumentNullException(nameof(readers));
+
+      return Join(source.Concat(readers), options);
+    }
 
     /// <summary>
-    /// Merge Channel Reader with others
+    /// Attach 
     /// </summary>
-    /// <param name="reader">Reader</param>
-    /// <param name="others">Readers to Merge</param>
-    /// <returns></returns>
-    public static ChannelReader<T> Merge<T>(this ChannelReader<T> reader,
-                                         params ChannelReader<T>[] others) =>
-      Merge(reader, others, default);
+    public static ChannelReader<T> Attach<T>(this IEnumerable<ChannelReader<T>> source,
+                                                  IEnumerable<ChannelReader<T>> readers) =>
+      Attach(source, readers, null);
 
     #endregion Public
   }

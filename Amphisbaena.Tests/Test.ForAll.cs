@@ -37,7 +37,7 @@ namespace Amphisbaena.Tests {
 
       await data
         .ToChannelReader()
-        .ForAll((item) => dict.TryAdd(item, item * item), Environment.ProcessorCount, default);
+        .ForAll((item) => dict.TryAdd(item, item * item));
 
       long actual = dict.Values.Sum(item => item);
 

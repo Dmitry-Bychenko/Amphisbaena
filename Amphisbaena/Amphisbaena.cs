@@ -3,5 +3,4 @@
 [assembly: CLSCompliant(true)]
 
 namespace Amphisbaena {
-
 }

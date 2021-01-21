@@ -10,32 +10,7 @@ namespace Amphisbaena {
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
-  /// Channel Reader Split Strategy
-  /// </summary>
-  //
-  //-------------------------------------------------------------------------------------------------------------------
-
-  public enum ChannelReaderSplitStrategy {
-    /// <summary>
-    /// Default (Round Robin)
-    /// </summary>
-    Default = 0,
-
-    /// <summary>
-    /// Round Robin
-    /// </summary>
-    RoundRobin = Default,
-
-    /// <summary>
-    /// Balanced
-    /// </summary>
-    Balanced = 1,
-  }
-
-  //-------------------------------------------------------------------------------------------------------------------
-  //
-  /// <summary>
-  /// Split (parallelize) Reader into several
+  /// Split Channel Reader into several ones
   /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
@@ -44,175 +19,44 @@ namespace Amphisbaena {
     #region Public
 
     /// <summary>
-    /// Round Robin Split
+    /// Split into several readers
     /// </summary>
-    /// <param name="reader">Reader To Split</param>
-    /// <param name="count">Number of Chunks</param>
-    /// <param name="token">Cancellation Token</param>
-    public static ChannelReader<T>[] RoundRobin<T>(ChannelReader<T> reader,
-                                                   int count,
-                                                   CancellationToken token) {
-      if (reader is null)
-        throw new ArgumentNullException(nameof(reader));
-      if (count <= 0)
-        throw new ArgumentOutOfRangeException(nameof(count));
-
-      token.ThrowIfCancellationRequested();
-
-      if (1 == count)
-        return new ChannelReader<T>[] { reader };
-
-      var result = new Channel<T>[count];
-
-      for (int i = 0; i < count; i++)
-        result[i] = Channel.CreateUnbounded<T>();
-
-      Task.Run(async () => {
-        var index = 0;
-
-        await foreach (var item in reader.ReadAllAsync(token).WithCancellation(token).ConfigureAwait(false)) {
-          await result[index].Writer.WriteAsync(item).ConfigureAwait(false);
-
-          index = (index + 1) % count;
-        }
-
-        foreach (var channel in result)
-          channel.Writer.Complete();
-      }, token);
-
-      return result
-        .Select(ch => ch.Reader)
-        .ToArray();
-    }
-
-    /// <summary>
-    /// Round Robin Split
-    /// </summary>
-    /// <param name="reader">Reader To Split</param>
-    /// <param name="count">Number of Chunks</param>
-    public static ChannelReader<T>[] RoundRobin<T>(ChannelReader<T> reader, int count) =>
-      RoundRobin(reader, count, default);
-
-    /// <summary>
-    /// Balanced Split
-    /// </summary>
-    /// <param name="reader">Reader To Split</param>
-    /// <param name="count">Number of Chunks</param>
-    public static ChannelReader<T>[] Balanced<T>(ChannelReader<T> reader,
-                                                 int count,
-                                                 CancellationToken token) {
-      if (reader is null)
-        throw new ArgumentNullException(nameof(reader));
-      if (count <= 0)
-        throw new ArgumentOutOfRangeException(nameof(count));
-
-      token.ThrowIfCancellationRequested();
-
-      if (1 == count)
-        return new ChannelReader<T>[] { reader };
-
-      var result = new Channel<T>[count];
-
-      for (int i = 0; i < count; i++)
-        result[i] = Channel.CreateUnbounded<T>();
-
-      Task.Run(async () => {
-        await foreach (T item in reader.ReadAllAsync(token).WithCancellation(token).ConfigureAwait(false)) {
-          int minIndex = -1;
-          int min = 0;
-
-          for (int i = 0; i < result.Length; ++i) {
-            int actualCount = result[i].Reader.Count;
-
-            if (i == 0 || min > actualCount) {
-              min = actualCount;
-              minIndex = i;
-            }
-          }
-
-          await result[minIndex].Writer.WriteAsync(item).ConfigureAwait(false);
-        }
-
-        foreach (var channel in result)
-          channel.Writer.Complete();
-      }, token);
-
-      return result
-        .Select(ch => ch.Reader)
-        .ToArray();
-    }
-
-    /// <summary>
-    /// Balanced Split
-    /// </summary>
-    /// <param name="reader">Reader To Split</param>
-    /// <param name="count">Number of Chunks</param>
-    public static ChannelReader<T>[] Balanced<T>(ChannelReader<T> reader, int count) =>
-      Balanced(reader, count, default);
-
-    #endregion Public
-  }
-
-  //-------------------------------------------------------------------------------------------------------------------
-  //
-  /// <summary>
-  /// Channel Reader Extensions
-  /// </summary>
-  //
-  //-------------------------------------------------------------------------------------------------------------------
-
-  public static partial class ChannelReaderExtensions {
-    #region Public
-
-    /// <summary>
-    /// Split ChannelReader into several readers
-    /// </summary>
-    /// <param name="source">Initial Channel to Split</param>
-    /// <param name="count">Number of readers to create</param>
-    /// <param name="splitStrategy">Split Strategy</param>
-    /// <param name="token">Cancellation token</param>
-    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source,
-                                                   int count,
-                                                   ChannelReaderSplitStrategy splitStrategy,
-                                                   CancellationToken token) {
+    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source, 
+                                                   ChannelParallelOptions options) {
       if (source is null)
         throw new ArgumentNullException(nameof(source));
 
-      return splitStrategy switch {
-        ChannelReaderSplitStrategy.Balanced => ChannelReaderSplit.Balanced(source, count, token),
-        ChannelReaderSplitStrategy.RoundRobin => ChannelReaderSplit.RoundRobin(source, count, token),
-        _ => ChannelReaderSplit.RoundRobin(source, count, token),
-      };
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      if (op.Capacity == 1)
+        return new ChannelReader<T>[] { source };
+
+      Channel<T>[] result = Enumerable
+        .Range(0, op.Capacity)
+        .Select(_x => op.CreateChannel<T>())
+        .ToArray();
+
+      Task.Run(async () => {
+        var balancer = op.BalancingStrategy.Create(result);
+
+        await foreach (var item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+          Channel<T> channel = balancer.Next();
+
+          await channel.Writer.WriteAsync(item).ConfigureAwait(false);
+        }
+
+        foreach (var channel in result)
+          channel.Writer.TryComplete();
+      }, op.CancellationToken);
+
+      return result
+        .Select(ch => ch.Reader)
+        .ToArray();
     }
-
-    /// <summary>
-    /// Split ChannelReader into several readers
-    /// </summary>
-    /// <param name="source">Initial Channel to Split</param>
-    /// <param name="count">Number of readers to create</param>
-    /// <param name="splitStrategy">Split Strategy</param>
-    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source,
-                                                   int count,
-                                                   ChannelReaderSplitStrategy splitStrategy) =>
-      Split(source, count, splitStrategy, default);
-
-    /// <summary>
-    /// Split ChannelReader into several readers
-    /// </summary>
-    /// <param name="source">Initial Channel to Split</param>
-    /// <param name="count">Number of readers to create</param>
-    /// <param name="token">Cancellation token</param>
-    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source,
-                                                   int count,
-                                                   CancellationToken token) =>
-      Split(source, count, ChannelReaderSplitStrategy.Default, token);
-
-    /// <summary>
-    /// Split ChannelReader into several readers
-    /// </summary>
-    /// <param name="source">Initial Channel to Split</param>
-    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source, int count) =>
-      Split(source, count, ChannelReaderSplitStrategy.Default, default);
 
     #endregion Public
   }
