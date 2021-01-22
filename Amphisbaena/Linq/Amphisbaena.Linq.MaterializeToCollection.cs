@@ -144,4 +144,5 @@ namespace Amphisbaena.Linq {
 
     #endregion Public
   }
+
 }
