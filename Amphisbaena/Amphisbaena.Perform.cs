@@ -93,7 +93,7 @@ namespace Amphisbaena {
           await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
             T target = action(item);
 
-            await result.Writer.WriteAsync(target).ConfigureAwait(false);
+            await result.Writer.WriteAsync(target, op.CancellationToken).ConfigureAwait(false);
           }
         }
 

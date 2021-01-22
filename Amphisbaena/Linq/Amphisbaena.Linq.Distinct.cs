@@ -40,7 +40,7 @@ namespace Amphisbaena.Linq {
 
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           if (unique.Add(item))
-            await result.Writer.WriteAsync(item).ConfigureAwait(false);
+            await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
 
         result.Writer.TryComplete();

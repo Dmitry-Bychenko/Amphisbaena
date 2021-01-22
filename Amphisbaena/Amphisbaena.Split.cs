@@ -44,7 +44,7 @@ namespace Amphisbaena {
         await foreach (var item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           Channel<T> channel = balancer.NextActor();
 
-          await channel.Writer.WriteAsync(item).ConfigureAwait(false);
+          await channel.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
 
         foreach (var channel in result)

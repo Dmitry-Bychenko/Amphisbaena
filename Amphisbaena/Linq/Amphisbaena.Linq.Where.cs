@@ -39,7 +39,7 @@ namespace Amphisbaena.Linq {
 
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
           if (condition(item, ++index))
-            await result.Writer.WriteAsync(item).ConfigureAwait(false);
+            await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
 
         result.Writer.TryComplete();
       }, op.CancellationToken);
@@ -76,7 +76,7 @@ namespace Amphisbaena.Linq {
       Task.Run(async () => {
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
           if (condition(item))
-            await result.Writer.WriteAsync(item).ConfigureAwait(false);
+            await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
 
         result.Writer.TryComplete();
       }, op.CancellationToken);
