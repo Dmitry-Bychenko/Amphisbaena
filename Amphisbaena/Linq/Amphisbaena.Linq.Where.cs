@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -19,7 +18,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Where
     /// </summary>
-    public static ChannelReader<T> Where<T>(this ChannelReader<T> reader, 
+    public static ChannelReader<T> Where<T>(this ChannelReader<T> reader,
                                                  Func<T, int, bool> condition,
                                                  ChannelParallelOptions options) {
       if (reader is null)

@@ -19,7 +19,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Distinct
     /// </summary>
-    public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader, 
+    public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader,
                                                     IEqualityComparer<T> comparer,
                                                     ChannelParallelOptions options) {
       if (reader is null)
