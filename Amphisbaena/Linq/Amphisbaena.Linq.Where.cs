@@ -19,7 +19,7 @@ namespace Amphisbaena.Linq {
     /// Where
     /// </summary>
     public static ChannelReader<T> Where<T>(this ChannelReader<T> reader,
-                                                 Func<T, int, bool> condition,
+                                                 Func<T, long, bool> condition,
                                                  ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -35,7 +35,7 @@ namespace Amphisbaena.Linq {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
-        int index = -1;
+        long index = -1;
 
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
           if (condition(item, ++index))
@@ -51,7 +51,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Where
     /// </summary>
-    public static ChannelReader<T> Where<T>(this ChannelReader<T> reader, Func<T, int, bool> condition) =>
+    public static ChannelReader<T> Where<T>(this ChannelReader<T> reader, Func<T, long, bool> condition) =>
       Where(reader, condition, null);
 
     /// <summary>

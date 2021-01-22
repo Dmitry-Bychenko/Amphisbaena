@@ -19,7 +19,7 @@ namespace Amphisbaena.Linq {
     /// Skip
     /// </summary>
     public static ChannelReader<T> Skip<T>(this ChannelReader<T> reader,
-                                                int count,
+                                                long count,
                                                 ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -50,7 +50,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Skip
     /// </summary>
-    public static ChannelReader<T> Skip<T>(this ChannelReader<T> reader, int count) =>
+    public static ChannelReader<T> Skip<T>(this ChannelReader<T> reader, long count) =>
       Skip(reader, count, null);
 
     /// <summary>
@@ -100,7 +100,7 @@ namespace Amphisbaena.Linq {
     /// Take
     /// </summary>
     public static ChannelReader<T> Take<T>(this ChannelReader<T> reader,
-                                                int count,
+                                                long count,
                                                 ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -133,7 +133,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Take
     /// </summary>
-    public static ChannelReader<T> Take<T>(this ChannelReader<T> reader, int count) =>
+    public static ChannelReader<T> Take<T>(this ChannelReader<T> reader, long count) =>
       Take(reader, count, null);
 
     /// <summary>

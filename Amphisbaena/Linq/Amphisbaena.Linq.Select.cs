@@ -19,7 +19,7 @@ namespace Amphisbaena.Linq {
     /// Select 
     /// </summary>
     public static ChannelReader<T> Select<T, S>(this ChannelReader<S> reader,
-                                                     Func<S, int, T> map,
+                                                     Func<S, long, T> map,
                                                      ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -35,7 +35,7 @@ namespace Amphisbaena.Linq {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
-        int index = -1;
+        long index = -1;
 
         await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
           await result.Writer.WriteAsync(map(item, ++index)).ConfigureAwait(false);
@@ -49,7 +49,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Select 
     /// </summary>
-    public static ChannelReader<T> Select<T, S>(this ChannelReader<S> reader, Func<S, int, T> map) =>
+    public static ChannelReader<T> Select<T, S>(this ChannelReader<S> reader, Func<S, long, T> map) =>
       Select(reader, map, null);
 
     /// <summary>
