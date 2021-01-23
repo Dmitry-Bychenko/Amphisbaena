@@ -40,8 +40,6 @@ namespace Amphisbaena.Tests {
       Assert.IsTrue(expected == actual);
     }
 
-
-
     #endregion Tests
   }
 
