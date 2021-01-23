@@ -11,7 +11,8 @@
     <Authors>Dmitry Bychenko</Authors>
     <Product />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Linq to ChannelReader</PackageReleaseNotes>
+    <PackageReleaseNotes>This .Net 5 library is Linq to ChannelReader (System.Threading.Channels.ChannelReader). Unlike standard LINQ to Objects (which is an extension over IEnumerable) this implementation is not lazy but eager and asynchronous</PackageReleaseNotes>
+    <Copyright>Copyright (c) 2021 Dmitry Bychenko</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
