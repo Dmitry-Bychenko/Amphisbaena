@@ -51,7 +51,7 @@ namespace Amphisbaena.Linq {
     /// Skip
     /// </summary>
     public static ChannelReader<T> Skip<T>(this ChannelReader<T> reader, long count) =>
-      Skip(reader, count, null);
+      Skip(reader, count, default);
 
     /// <summary>
     /// SkipWhile
@@ -94,7 +94,7 @@ namespace Amphisbaena.Linq {
     /// SkipWhile
     /// </summary>
     public static ChannelReader<T> SkipWhile<T>(this ChannelReader<T> reader, Func<T, bool> condition) =>
-      SkipWhile(reader, condition, null);
+      SkipWhile(reader, condition, default);
 
     /// <summary>
     /// Take
@@ -134,7 +134,7 @@ namespace Amphisbaena.Linq {
     /// Take
     /// </summary>
     public static ChannelReader<T> Take<T>(this ChannelReader<T> reader, long count) =>
-      Take(reader, count, null);
+      Take(reader, count, default);
 
     /// <summary>
     /// TakeWhile
@@ -174,7 +174,7 @@ namespace Amphisbaena.Linq {
     /// TakeWhile
     /// </summary>
     public static ChannelReader<T> TakeWhile<T>(this ChannelReader<T> reader, Func<T, bool> condition) =>
-      TakeWhile(reader, condition, null);
+      TakeWhile(reader, condition, default);
 
     #endregion Public
   }

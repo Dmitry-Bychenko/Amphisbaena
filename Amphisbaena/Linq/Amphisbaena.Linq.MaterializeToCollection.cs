@@ -41,7 +41,7 @@ namespace Amphisbaena.Linq {
     /// To List (async)
     /// </summary>
     public static async Task<List<T>> ToListAsync<T>(this ChannelReader<T> source) =>
-      await ToListAsync(source, null);
+      await ToListAsync(source, default);
 
     /// <summary>
     /// To Array (async)
@@ -68,7 +68,7 @@ namespace Amphisbaena.Linq {
     /// To Array (async)
     /// </summary>
     public static async Task<T[]> ToArrayAsync<T>(this ChannelReader<T> source) =>
-      await ToArrayAsync(source, null);
+      await ToArrayAsync(source, default);
 
     /// <summary>
     /// To Dictionary
@@ -108,7 +108,7 @@ namespace Amphisbaena.Linq {
                                                                                Func<T, K> key,
                                                                                Func<T, V> value,
                                                                                IEqualityComparer<K> comparer) =>
-      await ToDictionaryAsync(source, key, value, comparer, null);
+      await ToDictionaryAsync(source, key, value, comparer, default);
 
     /// <summary>
     /// To Dictionary
@@ -116,7 +116,7 @@ namespace Amphisbaena.Linq {
     public static async Task<Dictionary<K, V>> ToDictionaryAsync<T, K, V>(this ChannelReader<T> source,
                                                                                Func<T, K> key,
                                                                                Func<T, V> value) =>
-      await ToDictionaryAsync(source, key, value, null, null);
+      await ToDictionaryAsync(source, key, value, default, default);
 
     /// <summary>
     /// To Dictionary
@@ -133,14 +133,14 @@ namespace Amphisbaena.Linq {
     public static async Task<Dictionary<K, T>> ToDictionaryAsync<T, K>(this ChannelReader<T> source,
                                                                             Func<T, K> key,
                                                                             IEqualityComparer<K> comparer) =>
-      await ToDictionaryAsync(source, key, item => item, comparer, null);
+      await ToDictionaryAsync(source, key, item => item, comparer, default);
 
     /// <summary>
     /// To Dictionary
     /// </summary>
     public static async Task<Dictionary<K, T>> ToDictionaryAsync<T, K>(this ChannelReader<T> source,
                                                                             Func<T, K> key) =>
-      await ToDictionaryAsync(source, key, item => item, null, null);
+      await ToDictionaryAsync(source, key, item => item, default, default);
 
     #endregion Public
   }

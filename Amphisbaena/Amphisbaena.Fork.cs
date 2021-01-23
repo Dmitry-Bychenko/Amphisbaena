@@ -75,6 +75,26 @@ namespace Amphisbaena {
     /// </summary>
     /// <param name="reader">Initial reader to fork</param>
     /// <param name="conditions">Conditions for i-th fork; null stands for always true</param>
+    /// <param name="options">Parallel options</param>
+    public static ChannelReader<T>[] Fork<T>(this ChannelReader<T> reader,
+                                                  ChannelParallelOptions options,
+                                           params Func<T, bool>[] conditions) =>
+      Fork(reader, conditions, options);
+
+    /// <summary>
+    /// Fork according to conditions
+    /// </summary>
+    /// <param name="reader">Initial reader to fork</param>
+    /// <param name="conditions">Conditions for i-th fork; null stands for always true</param>
+    public static ChannelReader<T>[] Fork<T>(this ChannelReader<T> reader,
+                                           params Func<T, bool>[] conditions) =>
+      Fork(reader, conditions, default);
+
+    /// <summary>
+    /// Fork according to conditions
+    /// </summary>
+    /// <param name="reader">Initial reader to fork</param>
+    /// <param name="conditions">Conditions for i-th fork; null stands for always true</param>
     public static ChannelReader<T>[] Fork<T>(this ChannelReader<T> reader,
                                                   IEnumerable<Func<T, bool>> conditions) =>
       Fork(reader, conditions, default);
@@ -102,6 +122,76 @@ namespace Amphisbaena {
 
       return Fork(reader, new Func<T, bool>[numberOfForks], default);
     }
+
+    /// <summary>
+    /// Detach
+    /// </summary>
+    /// <param name="reader">Initial reader to detach from</param>
+    /// <param name="detached">Detached channel</param>
+    /// <param name="condition">Condition on detached channel</param>
+    /// <param name="options">Options</param>
+    public static ChannelReader<T> Detach<T>(this ChannelReader<T> reader,
+                                              out ChannelReader<T> detached,
+                                                  Func<T, bool> condition,
+                                                  ChannelParallelOptions options) {
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      Channel<T> result = op.CreateChannel<T>();
+      Channel<T> detachedChannel = op.CreateChannel<T>();
+
+      detached = detachedChannel.Reader;
+
+      Task.Run(async () => {
+        await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+          await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+
+          if (condition(item))
+            await detachedChannel.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+        }
+      });
+
+      return result.Reader;
+    }
+
+    /// <summary>
+    /// Detach
+    /// </summary>
+    /// <param name="reader">Initial reader to detach from</param>
+    /// <param name="detached">Detached channel</param>
+    /// <param name="condition">Condition on detached channel</param>
+    public static ChannelReader<T> Detach<T>(this ChannelReader<T> reader,
+                                              out ChannelReader<T> detached,
+                                                  Func<T, bool> condition) =>
+      Detach(reader, out detached, condition, default);
+
+    /// <summary>
+    /// Detach
+    /// </summary>
+    /// <param name="reader">Initial reader to detach from</param>
+    /// <param name="detached">Detached channel</param>
+    /// <param name="options">Options</param>
+    public static ChannelReader<T> Detach<T>(this ChannelReader<T> reader,
+                                              out ChannelReader<T> detached,
+                                                  ChannelParallelOptions options) =>
+      Detach(reader, out detached, default, options);
+
+    /// <summary>
+    /// Detach
+    /// </summary>
+    /// <param name="reader">Initial reader to detach from</param>
+    /// <param name="detached">Detached channel</param>
+    public static ChannelReader<T> Detach<T>(this ChannelReader<T> reader,
+                                              out ChannelReader<T> detached) =>
+      Detach(reader, out detached, default, default);
 
     #endregion Public
   }

@@ -164,8 +164,11 @@ namespace Amphisbaena.Linq {
       bool first = true;
 
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
-        if (first || comparer.Compare(item, result) < 0)
+        if (first || comparer.Compare(item, result) < 0) {
+          first = false;
+
           result = item;
+        }
 
       if (first)
         throw new InvalidOperationException("Empty reader doesn't have min item.");
@@ -215,8 +218,11 @@ namespace Amphisbaena.Linq {
       bool first = true;
 
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
-        if (first || comparer.Compare(item, result) > 0)
+        if (first || comparer.Compare(item, result) > 0) {
+          first = false;
+
           result = item;
+        }
 
       if (first)
         throw new InvalidOperationException("Empty reader doesn't have max item.");
@@ -240,7 +246,7 @@ namespace Amphisbaena.Linq {
     /// Max
     /// </summary>
     public static async Task<T> Max<T>(this ChannelReader<T> reader)
-      where T : IComparable<T> => await Min<T>(reader, default, default);
+      where T : IComparable<T> => await Max<T>(reader, default, default);
 
     #endregion Public
   }

@@ -61,7 +61,7 @@ namespace Amphisbaena {
     /// Join Readers
     /// </summary>
     public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers) =>
-      Join(readers, null);
+      Join(readers, default);
 
     /// <summary>
     /// Attach 
@@ -82,7 +82,7 @@ namespace Amphisbaena {
     /// </summary>
     public static ChannelReader<T> Attach<T>(this ChannelReader<T> source,
                                                   IEnumerable<ChannelReader<T>> readers) =>
-      Attach(source, readers, null);
+      Attach(source, readers, default);
 
     /// <summary>
     /// Attach 
@@ -103,7 +103,7 @@ namespace Amphisbaena {
     /// </summary>
     public static ChannelReader<T> Attach<T>(this IEnumerable<ChannelReader<T>> source,
                                                   IEnumerable<ChannelReader<T>> readers) =>
-      Attach(source, readers, null);
+      Attach(source, readers, default);
 
     #endregion Public
   }

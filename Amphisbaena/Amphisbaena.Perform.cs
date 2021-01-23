@@ -67,7 +67,7 @@ namespace Amphisbaena {
     /// For All
     /// </summary>
     public static async Task ForAll<T>(this ChannelReader<T> reader, Action<T> action) =>
-      await ForAll(reader, action, null);
+      await ForAll(reader, action, default);
 
     /// <summary>
     /// For Each (Parallelized Select) 
@@ -114,7 +114,7 @@ namespace Amphisbaena {
     /// For Each (Parallelized Select) 
     /// </summary>
     public static ChannelReader<T> ForEach<S, T>(this ChannelReader<S> reader, Func<S, T> action) =>
-      ForEach(reader, action, null);
+      ForEach(reader, action, default);
 
     #endregion Public
   }

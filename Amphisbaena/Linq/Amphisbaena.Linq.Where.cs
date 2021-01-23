@@ -52,7 +52,7 @@ namespace Amphisbaena.Linq {
     /// Where
     /// </summary>
     public static ChannelReader<T> Where<T>(this ChannelReader<T> reader, Func<T, long, bool> condition) =>
-      Where(reader, condition, null);
+      Where(reader, condition, default);
 
     /// <summary>
     /// Where
@@ -88,7 +88,7 @@ namespace Amphisbaena.Linq {
     /// Where
     /// </summary>
     public static ChannelReader<T> Where<T>(this ChannelReader<T> reader, Func<T, bool> condition) =>
-      Where(reader, condition, null);
+      Where(reader, condition, default);
 
     #endregion Public
   }

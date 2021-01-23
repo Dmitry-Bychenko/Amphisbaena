@@ -13,11 +13,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>This .Net 5 library is LINQ to ChannelReader (System.Threading.Channels.ChannelReader). Unlike standard LINQ to Objects (which is an extension over IEnumerable&lt;T&gt;) this implementation is not lazy but eager and asynchronous.</PackageReleaseNotes>
     <Copyright>Copyright (c) 2021 Dmitry Bychenko</Copyright>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
 </Project>

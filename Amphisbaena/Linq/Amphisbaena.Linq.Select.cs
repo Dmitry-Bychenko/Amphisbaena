@@ -50,7 +50,7 @@ namespace Amphisbaena.Linq {
     /// Select 
     /// </summary>
     public static ChannelReader<T> Select<T, S>(this ChannelReader<S> reader, Func<S, long, T> map) =>
-      Select(reader, map, null);
+      Select(reader, map, default);
 
     /// <summary>
     /// Select 
@@ -85,7 +85,7 @@ namespace Amphisbaena.Linq {
     /// Select 
     /// </summary>
     public static ChannelReader<T> Select<T, S>(this ChannelReader<S> reader, Func<S, T> map) =>
-      Select(reader, map, null);
+      Select(reader, map, default);
 
     #endregion Public
   }

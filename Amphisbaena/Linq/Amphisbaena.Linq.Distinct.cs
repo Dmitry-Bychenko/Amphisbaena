@@ -53,19 +53,19 @@ namespace Amphisbaena.Linq {
     /// Distinct
     /// </summary>
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader, IEqualityComparer<T> comparer) =>
-      Distinct(reader, comparer, null);
+      Distinct(reader, comparer, default);
 
     /// <summary>
     /// Distinct
     /// </summary>
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      Distinct(reader, null, options);
+      Distinct(reader, default, options);
 
     /// <summary>
     /// Distinct
     /// </summary>
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader) =>
-      Distinct(reader, null, null);
+      Distinct(reader, default, default);
 
     #endregion Public
   }
