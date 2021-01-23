@@ -19,7 +19,7 @@ namespace Amphisbaena.Tests {
     #region Public
 
     [TestMethod]
-    public async Task Sums() {
+    public async Task MinAndMaxFork() {
       int[] data = Enumerable
         .Range(0, 10000)
         .Select(x => x)
@@ -41,6 +41,34 @@ namespace Amphisbaena.Tests {
       Assert.AreEqual(9998, max);
       Assert.AreEqual(1, min);
     }
+
+    
+    [TestMethod]
+    public async Task MinAndMaxDetach() {
+      int[] data = Enumerable
+        .Range(1, 10000)
+        .Select(x => x * x % 12345)
+        .ToArray();
+
+      int expectedMin = data.Min();
+      int expectedMax = data.Max();
+
+      var minTask = data
+        .ToChannelReader()
+        .Detach(out var detached)
+        .Min();
+
+      var maxTask = detached.Max();
+
+      await Task.WhenAll(minTask, maxTask);
+
+      var actualMin = await minTask;
+      var actualMax = await maxTask;
+
+      Assert.AreEqual(expectedMax, actualMax);
+      Assert.AreEqual(expectedMin, actualMin);
+    }
+    
 
     #endregion Public
   }

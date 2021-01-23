@@ -157,6 +157,9 @@ namespace Amphisbaena {
           if (condition(item))
             await detachedChannel.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
+
+        result.Writer.TryComplete();
+        detachedChannel.Writer.TryComplete();
       });
 
       return result.Reader;
