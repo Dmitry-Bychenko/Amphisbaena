@@ -22,4 +22,5 @@ namespace Amphisbaena.Tests {
       Assert.AreEqual(4.5, stat.Average);
     }
   }
+
 }
