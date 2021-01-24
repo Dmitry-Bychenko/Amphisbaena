@@ -71,6 +71,51 @@ namespace Amphisbaena.Linq {
       await ToArrayAsync(source, default);
 
     /// <summary>
+    /// To HashSet 
+    /// </summary>
+    public static async Task<HashSet<T>> ToHashSet<T>(this ChannelReader<T> reader,
+                                                           IEqualityComparer<T> comparer,
+                                                           ChannelParallelOptions options) {
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
+
+      comparer ??= EqualityComparer<T>.Default;
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      HashSet<T> result = new HashSet<T>(comparer);
+
+      await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
+        result.Add(item);
+
+      return result;
+    }
+
+    /// <summary>
+    /// To HashSet 
+    /// </summary>
+    public static async Task<HashSet<T>> ToHashSet<T>(this ChannelReader<T> reader,
+                                                           IEqualityComparer<T> comparer) =>
+      await ToHashSet(reader, comparer, default);
+
+    /// <summary>
+    /// To HashSet 
+    /// </summary>
+    public static async Task<HashSet<T>> ToHashSet<T>(this ChannelReader<T> reader,
+                                                           ChannelParallelOptions options) =>
+      await ToHashSet(reader, default, options);
+
+    /// <summary>
+    /// To HashSet 
+    /// </summary>
+    public static async Task<HashSet<T>> ToHashSet<T>(this ChannelReader<T> reader) =>
+      await ToHashSet(reader, default, default);
+
+    /// <summary>
     /// To Dictionary
     /// </summary>
     public static async Task<Dictionary<K, V>> ToDictionaryAsync<T, K, V>(this ChannelReader<T> source,

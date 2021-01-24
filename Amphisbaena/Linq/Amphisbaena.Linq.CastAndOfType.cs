@@ -26,6 +26,8 @@ namespace Amphisbaena.Linq {
         ? new ChannelParallelOptions()
         : options.Clone();
 
+      op.CancellationToken.ThrowIfCancellationRequested();
+
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
@@ -58,6 +60,8 @@ namespace Amphisbaena.Linq {
       ChannelParallelOptions op = options is null
         ? new ChannelParallelOptions()
         : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
 
       Channel<T> result = op.CreateChannel<T>();
 
