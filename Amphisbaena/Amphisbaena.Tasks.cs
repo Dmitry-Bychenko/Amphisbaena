@@ -79,6 +79,29 @@ namespace Amphisbaena {
     public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader) =>
       WhenAll(reader, default);
 
+    /// <summary>
+    /// To Task (Stub for awaiting)
+    /// </summary>
+    public static async Task ToTask<T>(this ChannelReader<T> reader, ChannelParallelOptions options) {
+      if (reader is null)
+        return;
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      await foreach (T _ in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
+        ;
+    }
+
+    /// <summary>
+    /// To Task (Stub for awaiting)
+    /// </summary>
+    public static async Task ToTask<T>(this ChannelReader<T> reader) =>
+      await ToTask(reader, default);
+
     #endregion Public
   }
 
