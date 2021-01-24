@@ -1,6 +1,6 @@
-﻿using Amphisbaena;
-using Amphisbaena.Linq;
+﻿using Amphisbaena.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +22,10 @@ namespace Amphisbaena.Tests {
 
       await data
         .ToChannelReader()
-        .ActForEach(item => result.Enqueue(item))
+        .ActForEach(item => {
+          result.Enqueue(item);
+          Console.WriteLine(item);
+        })
         .ToTask();
 
       int sum = result.Sum();

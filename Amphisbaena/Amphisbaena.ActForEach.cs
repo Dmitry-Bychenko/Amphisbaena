@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -41,7 +40,7 @@ namespace Amphisbaena {
       Task.Run(async () => {
         long index = -1;
 
-        await foreach(T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           index += 1;
 
           if (condition(item, index))
