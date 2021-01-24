@@ -20,6 +20,21 @@ namespace Amphisbaena.Tests {
   public sealed class FactoryTest {
     #region Tests
 
+    [TestMethod]
+    public void SyncMe() {
+      int[] data = Enumerable
+        .Range(1, 1_000_000)
+        .Select(i => i)
+        .ToArray();
+
+      var result = data
+        .ToChannelReader()
+        .ToEnumerable(default)
+        .ToArray();
+
+      Assert.AreEqual(data.Length, result.Length);
+    }
+
     /// <summary>
     /// Create Channel from an array and materialize it back to array
     /// </summary>
