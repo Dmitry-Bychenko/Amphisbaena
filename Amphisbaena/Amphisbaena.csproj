@@ -5,7 +5,8 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Amphisbaena.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>System.Threading.Channels extensions</Description>
+    <Description>System.Threading.Channel.Reader extensions
+Eager Async LINQ to Objects</Description>
     <RepositoryUrl>https://github.com/Dmitry-Bychenko/Amphisbaena</RepositoryUrl>
     <RepositoryType>Library</RepositoryType>
     <Authors>Dmitry Bychenko</Authors>
@@ -14,11 +15,12 @@
     <PackageReleaseNotes>This .Net 5 library is LINQ to ChannelReader (System.Threading.Channels.ChannelReader). Unlike standard LINQ to Objects (which is an extension over IEnumerable&lt;T&gt;) this implementation is not lazy but eager and asynchronous.</PackageReleaseNotes>
     <Copyright>Copyright (c) 2021 Dmitry Bychenko</Copyright>
     <DelaySign>false</DelaySign>
+    <PackageTags>Linq Channel .Net 5</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 

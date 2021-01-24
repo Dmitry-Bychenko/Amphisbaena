@@ -19,7 +19,7 @@
 //   .Statistics())
 //   .Average;
 //
-// Copyright (c) 2021, Dmitry Bychenko
+// Copyright (c) 2021 by Dmitry Bychenko 
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
