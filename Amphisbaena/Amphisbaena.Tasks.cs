@@ -31,7 +31,7 @@ namespace Amphisbaena {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
-        await foreach(Task<T> task in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (Task<T> task in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           await result.Writer.WriteAsync(await task, op.CancellationToken).ConfigureAwait(false);
         }
 

@@ -29,7 +29,7 @@ namespace Amphisbaena.Linq {
         ? new ChannelParallelOptions()
         : options.Clone();
 
-      Channel = op.CreateChannel<V>(); 
+      Channel = op.CreateChannel<V>();
     }
 
     #endregion Create
@@ -98,7 +98,7 @@ namespace Amphisbaena.Linq {
       Task.Run(async () => {
         Dictionary<K, ChannelGroup<K, V>> dict = new Dictionary<K, ChannelGroup<K, V>>(keyComparer);
 
-        await foreach(S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           K key = keySelector(item);
           V value = valueSelector(item);
 

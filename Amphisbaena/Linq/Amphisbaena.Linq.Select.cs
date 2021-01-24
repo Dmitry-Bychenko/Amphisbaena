@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -91,7 +90,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Select Many
     /// </summary>
-    public static ChannelReader<T> SelectMany<T, S>(this ChannelReader<S> reader, 
+    public static ChannelReader<T> SelectMany<T, S>(this ChannelReader<S> reader,
                                                          Func<S, long, ChannelReader<T>> selector,
                                                          ChannelParallelOptions options) {
       if (reader is null)
@@ -110,7 +109,7 @@ namespace Amphisbaena.Linq {
       Task.Run(async () => {
         long index = -1;
 
-        await foreach(S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           index += 1;
 
           ChannelReader<T> inner = selector(item, index);
@@ -118,7 +117,7 @@ namespace Amphisbaena.Linq {
           if (inner is null)
             continue;
 
-          await foreach(T rec in inner.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+          await foreach (T rec in inner.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
             await result.Writer.WriteAsync(rec, op.CancellationToken).ConfigureAwait(false);
           }
         }

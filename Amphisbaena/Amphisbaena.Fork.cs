@@ -5,7 +5,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace Amphisbaena {
-  
+
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
@@ -23,7 +23,7 @@ namespace Amphisbaena {
     /// <param name="reader">Initial reader to fork</param>
     /// <param name="conditions">Conditions for i-th fork; null stands for always true</param>
     /// <param name="options">Parallel options</param>
-    public static ChannelReader<T>[] Fork<T>(this ChannelReader<T> reader, 
+    public static ChannelReader<T>[] Fork<T>(this ChannelReader<T> reader,
                                                   IEnumerable<Func<T, bool>> conditions,
                                                   ChannelParallelOptions options) {
       if (reader is null)
@@ -55,7 +55,7 @@ namespace Amphisbaena {
         .ToArray();
 
       Task.Run(async () => {
-        await foreach(T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           for (int i = 0; i < funcs.Length; ++i)
             if (funcs[i](item))
               await result[i].Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);

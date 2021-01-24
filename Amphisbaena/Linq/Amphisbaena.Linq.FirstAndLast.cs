@@ -15,14 +15,19 @@ namespace Amphisbaena.Linq {
   public static partial class ChannelReaderExtensions {
     #region Public
 
+    #region First Or Default
+
     /// <summary>
     /// First Or Default
     /// </summary>
-    public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader, 
-                                                       T defaultValue, 
+    public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
+                                                       Func<T, bool> condition,
+                                                       T defaultValue,
                                                        ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
 
       ChannelParallelOptions op = options is null
         ? new ChannelParallelOptions()
@@ -31,37 +36,123 @@ namespace Amphisbaena.Linq {
       op.CancellationToken.ThrowIfCancellationRequested();
 
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
-        return item;
+        if (condition(item))
+          return item;
 
       return defaultValue;
     }
 
     /// <summary>
+    /// First Or default
+    /// </summary>
+    public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
+                                                       Func<T, bool> condition,
+                                                       T defaultValue) =>
+      await FirstOrDefault(reader, condition, defaultValue, default);
+
+    /// <summary>
+    /// First Or Default
+    /// </summary>
+    public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
+                                                       Func<T, bool> condition,
+                                                       ChannelParallelOptions options) =>
+      await FirstOrDefault(reader, condition, default, options);
+
+    /// <summary>
+    /// First Or Default
+    /// </summary>
+    public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
+                                                       Func<T, bool> condition) =>
+      await FirstOrDefault(reader, condition, default, default);
+
+    /// <summary>
+    /// First Or Default
+    /// </summary>
+    public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
+                                                       T defaultValue,
+                                                       ChannelParallelOptions options) =>
+      await FirstOrDefault(reader, default, defaultValue, options);
+
+    /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader, T defaultValue) =>
-      await FirstOrDefault(reader, defaultValue, default);
+      await FirstOrDefault(reader, default, defaultValue, default);
 
     /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await FirstOrDefault(reader, default, options);
+      await FirstOrDefault(reader, default, default, options);
 
     /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader) =>
-      await FirstOrDefault(reader, default, default);
+      await FirstOrDefault(reader, default, default, default);
+
+    #endregion First Or Default
+
+    #region First
+
+    /// <summary>
+    /// First Or Default
+    /// </summary>
+    public static async Task<T> First<T>(this ChannelReader<T> reader,
+                                              Func<T, bool> condition,
+                                              ChannelParallelOptions options) {
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
+        if (condition(item))
+          return item;
+
+      throw new InvalidOperationException("Channel Reader is Empty.");
+    }
+
+    /// <summary>
+    /// First
+    /// </summary>
+    public static async Task<T> First<T>(this ChannelReader<T> reader,
+                                                       Func<T, bool> condition) =>
+      await First(reader, condition, default);
+
+    /// <summary>
+    /// First
+    /// </summary>
+    public static async Task<T> First<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
+      await First(reader, default, options);
+
+    /// <summary>
+    /// First
+    /// </summary>
+    public static async Task<T> First<T>(this ChannelReader<T> reader) =>
+      await First(reader, default, default);
+
+    #endregion First
+
+    #region Last Or Default
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
+                                                      Func<T, bool> condition,
                                                       T defaultValue,
                                                       ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
 
       ChannelParallelOptions op = options is null
         ? new ChannelParallelOptions()
@@ -72,7 +163,8 @@ namespace Amphisbaena.Linq {
       T result = defaultValue;
 
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
-        result = item;
+        if (condition(item))
+          result = item;
 
       return result;
     }
@@ -80,29 +172,121 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Last Or Default
     /// </summary>
+    public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
+                                                      Func<T, bool> condition,
+                                                      T defaultValue) =>
+      await LastOrDefault(reader, condition, defaultValue, default);
+
+    /// <summary>
+    /// Last Or Default
+    /// </summary>
+    public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
+                                                      Func<T, bool> condition,
+                                                      ChannelParallelOptions options) =>
+      await LastOrDefault(reader, condition, default, options);
+
+    /// <summary>
+    /// Last Or Default
+    /// </summary>
+    public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
+                                                      Func<T, bool> condition) =>
+      await LastOrDefault(reader, condition, default, default);
+
+    /// <summary>
+    /// Last Or Default
+    /// </summary>
+    public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
+                                                      T defaultValue,
+                                                      ChannelParallelOptions options) =>
+      await LastOrDefault(reader, default, defaultValue, options);
+
+    /// <summary>
+    /// Last Or Default
+    /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader, T defaultValue) =>
-      await LastOrDefault(reader, defaultValue, default);
+      await LastOrDefault(reader, default, defaultValue, default);
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await LastOrDefault(reader, default, options);
+      await LastOrDefault(reader, default, default, options);
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader) =>
-      await LastOrDefault(reader, default, default);
+      await LastOrDefault(reader, default, default, default);
+
+    #endregion Last Or Default
+
+    #region Last
+
+    /// <summary>
+    /// Last
+    /// </summary>
+    public static async Task<T> Last<T>(this ChannelReader<T> reader,
+                                             Func<T, bool> condition,
+                                             ChannelParallelOptions options) {
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      T result = default;
+      bool empty = true;
+
+      await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
+        if (condition(item)) {
+          empty = false;
+          result = item;
+        }
+
+      return !empty
+        ? result
+        : throw new InvalidOperationException("Channel Reader is Empty.");
+    }
+
+    /// <summary>
+    /// Last
+    /// </summary>
+    public static async Task<T> Last<T>(this ChannelReader<T> reader,
+                                             Func<T, bool> condition) =>
+      await Last(reader, condition, default);
+
+    /// <summary>
+    /// Last
+    /// </summary>
+    public static async Task<T> Last<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
+      await Last(reader, default, options);
+
+    /// <summary>
+    /// Last
+    /// </summary>
+    public static async Task<T> Last<T>(this ChannelReader<T> reader) =>
+      await Last(reader, default, default);
+
+    #endregion Last
+
+    #region Single Or Default
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
+                                                        Func<T, bool> condition,
                                                         T defaultValue,
                                                         ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
 
       ChannelParallelOptions op = options is null
         ? new ChannelParallelOptions()
@@ -114,13 +298,17 @@ namespace Amphisbaena.Linq {
 
       T result = defaultValue;
 
-      await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
+      await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        if (!condition(item))
+          continue;
+
         if (first) {
           result = item;
           first = false;
         }
         else
-          return defaultValue;
+          throw new InvalidOperationException("Channel Reader has more than single item.");
+      }
 
       return result;
     }
@@ -128,20 +316,116 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Single Or Default
     /// </summary>
+    public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
+                                                        Func<T, bool> condition,
+                                                        T defaultValue) =>
+      await SingleOrDefault(reader, condition, defaultValue, default);
+
+    /// <summary>
+    /// Single Or Default
+    /// </summary>
+    public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
+                                                        Func<T, bool> condition,
+                                                        ChannelParallelOptions options) =>
+      await SingleOrDefault(reader, condition, default, options);
+
+    /// <summary>
+    /// Single Or Default
+    /// </summary>
+    public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
+                                                        Func<T, bool> condition) =>
+      await SingleOrDefault(reader, condition, default, default);
+
+    /// <summary>
+    /// Single Or Default
+    /// </summary>
+    public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
+                                                        T defaultValue,
+                                                        ChannelParallelOptions options) =>
+      await SingleOrDefault(reader, default, defaultValue, options);
+
+    /// <summary>
+    /// Single Or Default
+    /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader, T defaultValue) =>
-      await SingleOrDefault(reader, defaultValue, default);
+      await SingleOrDefault(reader, default, defaultValue, default);
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await SingleOrDefault(reader, default, options);
+      await SingleOrDefault(reader, default, default, options);
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader) =>
-      await SingleOrDefault(reader, default, default);
+      await SingleOrDefault(reader, default, default, default);
+
+    #endregion Single Or Default
+
+    #region Single
+
+    /// <summary>
+    /// Single
+    /// </summary>
+    public static async Task<T> Single<T>(this ChannelReader<T> reader,
+                                               Func<T, bool> condition,
+                                               ChannelParallelOptions options) {
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
+
+      condition ??= x => true;
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      bool first = true;
+
+      T result = default;
+
+      await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        if (!condition(item))
+          continue;
+
+        if (first) {
+          result = item;
+          first = false;
+        }
+        else
+          throw new InvalidOperationException("Channel Reader has more than single item.");
+      }
+
+      return !first
+        ? result
+        : throw new InvalidOperationException("Channel Reader is Empty.");
+    }
+
+    /// <summary>
+    /// Single
+    /// </summary>
+    public static async Task<T> Single<T>(this ChannelReader<T> reader,
+                                               Func<T, bool> condition) =>
+      await Single(reader, condition, default);
+
+    /// <summary>
+    /// Single
+    /// </summary>
+    public static async Task<T> Single<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
+      await Single(reader, default, options);
+
+    /// <summary>
+    /// Single
+    /// </summary>
+    public static async Task<T> Single<T>(this ChannelReader<T> reader) =>
+      await Single(reader, default, default);
+
+    #endregion Single
+
+    #region Element At Or Default
 
     /// <summary>
     /// Element At Or Default
@@ -193,12 +477,21 @@ namespace Amphisbaena.Linq {
     public static async Task<T> ElementAtOrDefault<T>(this ChannelReader<T> reader, long index) =>
       await ElementAtOrDefault(reader, index, default, default);
 
+    #endregion Element At Or Default
+
+    #region Element At
+
     /// <summary>
-    /// Any
+    /// Element At 
     /// </summary>
-    public static async Task<bool> Any<T>(this ChannelReader<T> reader, ChannelParallelOptions options) {
+    public static async Task<T> ElementAt<T>(this ChannelReader<T> reader,
+                                                  long index,
+                                                  ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
+
+      if (index < 0)
+        throw new ArgumentOutOfRangeException(nameof(index));
 
       ChannelParallelOptions op = options is null
         ? new ChannelParallelOptions()
@@ -206,72 +499,23 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
-        return true;
+        if (index == 0)
+          return item;
+        else
+          index -= 1;
 
-      return false;
+      throw new InvalidOperationException("Channel Reader is too short.");
     }
 
     /// <summary>
-    /// Any
+    /// Element At
     /// </summary>
-    public static async Task<bool> Any<T>(this ChannelReader<T> reader) =>
-      await Any(reader, default);
+    public static async Task<T> ElementAt<T>(this ChannelReader<T> reader,
+                                                  long index) =>
+      await ElementAt(reader, index, default);
 
-    /// <summary>
-    /// Default If Empty
-    /// </summary>
-    public static ChannelReader<T> DefaultIfEmpty<T>(this ChannelReader<T> reader,
-                                                          T defaultValue,
-                                                          ChannelParallelOptions options) {
-      if (reader is null)
-        throw new ArgumentNullException(nameof(reader));
-
-      ChannelParallelOptions op = options is null
-        ? new ChannelParallelOptions()
-        : options.Clone();
-
-      op.CancellationToken.ThrowIfCancellationRequested();
-
-      Channel<T> result = op.CreateChannel<T>();
-
-      Task.Run(async () => {
-        bool any = false;
-
-        await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-          any = true;
-
-          await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
-        }
-
-        if (!any)
-          await result.Writer.WriteAsync(defaultValue, op.CancellationToken).ConfigureAwait(false);
-
-        result.Writer.TryComplete();
-      });
-
-      return result.Reader;
-    }
-
-    /// <summary>
-    /// Default If Empty
-    /// </summary>
-    public static ChannelReader<T> DefaultIfEmpty<T>(this ChannelReader<T> reader, T defaultValue) =>
-      DefaultIfEmpty(reader, defaultValue, default);
-
-    /// <summary>
-    /// Default If Empty
-    /// </summary>
-    public static ChannelReader<T> DefaultIfEmpty<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      DefaultIfEmpty(reader, default, options);
-
-    /// <summary>
-    /// Default If Empty
-    /// </summary>
-    public static ChannelReader<T> DefaultIfEmpty<T>(this ChannelReader<T> reader) =>
-      DefaultIfEmpty(reader, default, default);
+    #endregion Element At
 
     #endregion Public
   }

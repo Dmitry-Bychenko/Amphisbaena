@@ -26,7 +26,7 @@ namespace Amphisbaena.Tests {
 
       var forks = data
         .ToChannelReader()
-        .Fork(x => x % 2 == 0, 
+        .Fork(x => x % 2 == 0,
               x => x % 2 != 0);
 
       var maxTask = forks[0].Max();
@@ -34,14 +34,14 @@ namespace Amphisbaena.Tests {
 
       await Task.WhenAll(maxTask, minTask);
 
-      int max = await maxTask; 
+      int max = await maxTask;
       int min = await minTask;
 
       Assert.AreEqual(9998, max);
       Assert.AreEqual(1, min);
     }
 
-    
+
     [TestMethod]
     public async Task MinAndMaxDetach() {
       int[] data = Enumerable
@@ -67,7 +67,7 @@ namespace Amphisbaena.Tests {
       Assert.AreEqual(expectedMax, actualMax);
       Assert.AreEqual(expectedMin, actualMin);
     }
-    
+
 
     #endregion Public
   }

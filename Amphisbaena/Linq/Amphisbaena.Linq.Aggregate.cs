@@ -19,7 +19,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
-    public static async Task<T> Aggregate<T, A, S>(this ChannelReader<S> reader, 
+    public static async Task<T> Aggregate<T, A, S>(this ChannelReader<S> reader,
                                                         A seed,
                                                         Func<A, S, A> accumulate,
                                                         Func<A, T> result,
@@ -96,7 +96,7 @@ namespace Amphisbaena.Linq {
           first = false;
           outcome = item;
         }
-        else  
+        else
           outcome = accumulate(outcome, item);
       }
 
@@ -116,7 +116,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Count 
     /// </summary>
-    public static async Task<long> Count<T> (this ChannelReader<T> reader, ChannelParallelOptions options) {
+    public static async Task<long> Count<T>(this ChannelReader<T> reader, ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
 
@@ -143,7 +143,7 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Min
     /// </summary>
-    public static async Task<T> Min<T>(this ChannelReader<T> reader, 
+    public static async Task<T> Min<T>(this ChannelReader<T> reader,
                                             IComparer<T> comparer,
                                             ChannelParallelOptions options) {
       if (reader is null)

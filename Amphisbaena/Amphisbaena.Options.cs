@@ -14,10 +14,10 @@ namespace Amphisbaena {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  public sealed class ChannelParallelOptions 
+  public sealed class ChannelParallelOptions
     : IEquatable<ChannelParallelOptions>,
       ISerializable {
-    
+
     #region Private Data
 
     private int m_DegreeOfParallelism;
@@ -65,7 +65,7 @@ namespace Amphisbaena {
 
       m_DegreeOfParallelism = info.GetInt32("Degree");
       m_Capacity = info.GetInt32("Capacity");
-      BalancingStrategy = (ChannelBalancerStrategy) (info.GetInt32("Balancing"));
+      BalancingStrategy = (ChannelBalancerStrategy)(info.GetInt32("Balancing"));
 
       if (context.State == StreamingContextStates.Clone)
         CancellationToken = (CancellationToken)(info.GetValue("Token", typeof(CancellationToken)));
