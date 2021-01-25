@@ -19,6 +19,12 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
+    /// <param name="accumulate">Accumulate function</param>
+    /// <param name="options">Options</param>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="seed">Initial value for accumulation</param>
+    /// <param name="result">Final accumulated value conversion function</param>
+    /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T, A, S>(this ChannelReader<S> reader,
                                                         A seed,
                                                         Func<A, S, A> accumulate,
@@ -48,6 +54,11 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
+    /// <param name="accumulate">Accumulate function</param>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="seed">Initial value for accumulation</param>
+    /// <param name="result">Final accumulated value conversion function</param>
+    /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T, A, S>(this ChannelReader<S> reader,
                                                         A seed,
                                                         Func<A, S, A> accumulate,
@@ -57,6 +68,11 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
+    /// <param name="accumulate">Accumulate function</param>
+    /// <param name="options">Options</param>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="seed">Initial value for accumulation</param>
+    /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T, S>(this ChannelReader<S> reader,
                                                      T seed,
                                                      Func<T, S, T> accumulate,
@@ -66,6 +82,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
+    /// <param name="accumulate">Accumulate function</param>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="seed">Initial value for accumulation</param>
+    /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T, S>(this ChannelReader<S> reader,
                                                      T seed,
                                                      Func<T, S, T> accumulate) =>
@@ -74,6 +94,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="accumulate">Accumulate function</param>
+    /// <param name="options">Options</param>
+    /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T>(this ChannelReader<T> reader,
                                                   Func<T, T, T> accumulate,
                                                   ChannelParallelOptions options) {
@@ -109,6 +133,9 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Aggregate
     /// </summary>
+    /// <param name="accumulate">Accumulate function</param>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T>(this ChannelReader<T> reader,
                                                   Func<T, T, T> accumulate) =>
       await Aggregate<T>(reader, accumulate, default);
@@ -116,6 +143,11 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Min
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="comparer">Comparer to use</param>
+    /// <param name="options">Options</param>
+    /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader,
                                             IComparer<T> comparer,
                                             ChannelParallelOptions options) {
@@ -152,24 +184,41 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Min
     /// </summary>
-    public static async Task<T> Min<T>(this ChannelReader<T> reader, IComparer<T> compare) =>
-      await Min(reader, compare, default);
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="comparer">Comparer to use</param>
+    /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
+    public static async Task<T> Min<T>(this ChannelReader<T> reader, IComparer<T> comparer) =>
+      await Min(reader, comparer, default);
 
     /// <summary>
     /// Min
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="options">Options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader, ChannelParallelOptions options)
       where T : IComparable<T> => await Min<T>(reader, default, options);
 
     /// <summary>
     /// Min
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="options">Options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader)
       where T : IComparable<T> => await Min<T>(reader, default, default);
 
     /// <summary>
     /// Max
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="comparer">Comparer to use</param>
+    /// <param name="options">Options</param>
+    /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Max<T>(this ChannelReader<T> reader,
                                             IComparer<T> comparer,
                                             ChannelParallelOptions options) {
@@ -206,18 +255,29 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Max
     /// </summary>
-    public static async Task<T> Max<T>(this ChannelReader<T> reader, IComparer<T> compare) =>
-      await Max(reader, compare, default);
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="comparer">Comparer to use</param>
+    /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
+    public static async Task<T> Max<T>(this ChannelReader<T> reader, IComparer<T> comparer) =>
+      await Max(reader, comparer, default);
 
     /// <summary>
     /// Max
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <param name="options">Options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Max<T>(this ChannelReader<T> reader, ChannelParallelOptions options)
       where T : IComparable<T> => await Max<T>(reader, default, options);
 
     /// <summary>
     /// Max
     /// </summary>
+    /// <param name="reader">Initial ChannelReader to aggregate</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Max<T>(this ChannelReader<T> reader)
       where T : IComparable<T> => await Max<T>(reader, default, default);
 

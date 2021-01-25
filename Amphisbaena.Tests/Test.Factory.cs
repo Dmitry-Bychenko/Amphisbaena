@@ -29,7 +29,7 @@ namespace Amphisbaena.Tests {
 
       var result = data
         .ToChannelReader()
-        .ToEnumerable(default)
+        .ToEnumerable(new ChannelParallelOptions() { Capacity = 100})
         .ToArray();
 
       Assert.AreEqual(data.Length, result.Length);
@@ -47,6 +47,8 @@ namespace Amphisbaena.Tests {
         .ToArray();
 
       int[] result = await data.ToChannelReader().ToArrayAsync();
+
+      Assert.AreEqual(data.Length, result.Length);
 
       Assert.IsTrue(data.SequenceEqual(result));
     }

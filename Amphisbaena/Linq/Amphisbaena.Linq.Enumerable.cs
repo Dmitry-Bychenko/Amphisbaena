@@ -54,7 +54,9 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      BlockingCollection<T> result = new BlockingCollection<T>();
+      BlockingCollection<T> result = op.Capacity > 0
+        ? new BlockingCollection<T>(op.Capacity)
+        : new BlockingCollection<T>();
 
       Task.Run(async () => {
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
