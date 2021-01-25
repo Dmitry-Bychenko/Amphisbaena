@@ -9,50 +9,41 @@ namespace Amphisbaena.Tests.Linq {
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
-  /// Factory Tests
+  /// Min And Max
   /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  [TestCategory("Linq.Aggregate")]
+  [TestCategory("Linq.MinAndMax")]
   [TestClass]
-  public sealed class AggregateTest {
+  public sealed class MinAnMaxTest {
     #region Private Data
 
     private static readonly long[] data = Enumerable
       .Range(0, 100)
-      .Select(x => (long) x)
+      .Select(x => (long)x)
       .OrderBy(x => Guid.NewGuid())
       .ToArray();
 
     #endregion Private Data
 
-    #region Tests
-
-    [TestMethod("Sum 1 + 2 + ... + n")]
-    public async Task TestSimpleSum() {
-      long expected = data.Sum();
-
+    [TestMethod("Min({0 .. 99})")]
+    public async Task TestMin() {
       long actual = await data
         .ToChannelReader()
-        .Aggregate((s, a) => s + a);
+        .Min();
 
-      Assert.AreEqual(expected, actual);
+      Assert.AreEqual(data.Min(x => x), actual);
     }
 
-    [TestMethod("Sum (5 + 1 + 2 + ... + n) * 7")]
-    public async Task TestElaboratedSum() {
-      long expected = (data.Sum() + 5) * 7;
-
+    [TestMethod("Max({0 .. 99})")]
+    public async Task TestMax() {
       long actual = await data
         .ToChannelReader()
-        .Aggregate(5L, (s, a) => s + a, a => a * 7, new ChannelParallelOptions() { Capacity = 15 });
+        .Max();
 
-      Assert.AreEqual(expected, actual);
+      Assert.AreEqual(data.Max(), actual);
     }
 
-
-    #endregion Tests
   }
-
 }
