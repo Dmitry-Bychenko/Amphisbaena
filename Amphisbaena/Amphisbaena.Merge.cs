@@ -14,14 +14,14 @@ namespace Amphisbaena {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  public static class ChannelReaderJoin {
+  public static class ChannelReaderMerge {
     #region Public
 
     /// <summary>
     /// Join Readers
     /// </summary>
-    public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers,
-                                                ChannelParallelOptions options) {
+    public static ChannelReader<T> Merge<T>(this IEnumerable<ChannelReader<T>> readers,
+                                                 ChannelParallelOptions options) {
       if (readers is null)
         throw new ArgumentNullException(nameof(readers));
 
@@ -60,8 +60,8 @@ namespace Amphisbaena {
     /// <summary>
     /// Join Readers
     /// </summary>
-    public static ChannelReader<T> Join<T>(this IEnumerable<ChannelReader<T>> readers) =>
-      Join(readers, default);
+    public static ChannelReader<T> Merge<T>(this IEnumerable<ChannelReader<T>> readers) =>
+      Merge(readers, default);
 
     /// <summary>
     /// Attach 
@@ -74,7 +74,7 @@ namespace Amphisbaena {
       if (readers is null)
         throw new ArgumentNullException(nameof(readers));
 
-      return Join(new ChannelReader<T>[] { source }.Concat(readers), options);
+      return Merge(new ChannelReader<T>[] { source }.Concat(readers), options);
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ namespace Amphisbaena {
       if (readers is null)
         throw new ArgumentNullException(nameof(readers));
 
-      return Join(source.Concat(readers), options);
+      return Merge(source.Concat(readers), options);
     }
 
     /// <summary>
