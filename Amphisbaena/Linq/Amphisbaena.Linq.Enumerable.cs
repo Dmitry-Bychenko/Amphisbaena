@@ -6,44 +6,6 @@ using System.Threading.Tasks;
 
 namespace Amphisbaena.Linq {
 
-  // Wrapper over IDisposable 
-  internal class WrappedEnumerable<T> {
-    #region Private Data
-
-    private BlockingCollection<T> m_Collection;
-
-    #endregion Private Data
-
-    #region Create
-
-    internal WrappedEnumerable(BlockingCollection<T> collection) {
-      m_Collection = collection ?? throw new ArgumentNullException(nameof(collection));
-    }
-
-    #endregion Public
-
-    #region Public
-
-    /// <summary>
-    /// Enumerate
-    /// </summary>
-    public IEnumerable<T> Enumerate() {
-      if (m_Collection is null)
-        throw new InvalidOperationException("Enumerator has been disposed.");
-
-      try {
-        foreach (T item in m_Collection.GetConsumingEnumerable())
-          yield return item;
-      }
-      finally {
-        m_Collection.Dispose();
-        m_Collection = null;
-      }
-    }
-
-    #endregion Public
-  }
-
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
@@ -101,9 +63,22 @@ namespace Amphisbaena.Linq {
         result.CompleteAdding();
       }, op.CancellationToken);
 
-      WrappedEnumerable<T> wrapper = new WrappedEnumerable<T>(result);
+      IEnumerable<T> RollUp() {
+        if (result is null)
+          throw new InvalidOperationException("Enumeration has been consumed and disposed.");
 
-      return wrapper.Enumerate();
+        try {
+          foreach (T item in result.GetConsumingEnumerable())
+            yield return item;
+        }
+        finally {
+          result.Dispose();
+
+          result = null;
+        }
+      }
+
+      return RollUp();
     }
 
     /// <summary>
