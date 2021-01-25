@@ -9,7 +9,7 @@ namespace Amphisbaena {
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
-  /// Join (Attach) Channel Readers
+  /// Merge (Attach) Channel Readers
   /// </summary>
   //
   //-------------------------------------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ namespace Amphisbaena {
     #region Public
 
     /// <summary>
-    /// Join Readers
+    /// Merge Readers
     /// </summary>
     public static ChannelReader<T> Merge<T>(this IEnumerable<ChannelReader<T>> readers,
                                                  ChannelParallelOptions options) {
@@ -58,7 +58,7 @@ namespace Amphisbaena {
     }
 
     /// <summary>
-    /// Join Readers
+    /// Merge Readers
     /// </summary>
     public static ChannelReader<T> Merge<T>(this IEnumerable<ChannelReader<T>> readers) =>
       Merge(readers, default);
