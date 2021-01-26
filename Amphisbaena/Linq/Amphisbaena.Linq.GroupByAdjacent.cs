@@ -58,8 +58,11 @@ namespace Amphisbaena.Linq {
           V value = valueSelector(item);
 
           if ((group is null) || !comparer.Equals(key, group.Key)) {
-            if (group is object) 
+            if (group is object) {
               group.Channel.Writer.TryComplete();
+
+              await result.Writer.WriteAsync(group, op.CancellationToken).ConfigureAwait(false);
+            }
             
             group = new ChannelGroup<K, V>(key, op);
           }
@@ -67,8 +70,11 @@ namespace Amphisbaena.Linq {
           await group.Channel.Writer.WriteAsync(value, op.CancellationToken).ConfigureAwait(false);
         }
 
-        if (group is object)
+        if (group is object) {
           group.Channel.Writer.TryComplete();
+
+          await result.Writer.WriteAsync(group, op.CancellationToken).ConfigureAwait(false);
+        }
 
         result.Writer.TryComplete();
       });

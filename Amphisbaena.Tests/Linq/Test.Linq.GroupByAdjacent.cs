@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Amphisbaena.Tests.Linq {
-
   //-------------------------------------------------------------------------------------------------------------------
   //
   /// <summary>
@@ -13,25 +12,20 @@ namespace Amphisbaena.Tests.Linq {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  [TestCategory("Linq.GroupBy")]
+  [TestCategory("Linq.GroupByAdjacent")]
   [TestClass]
-  public class TestGroupBy {
+  public class TestGroupByAdjacent {
     #region Public
 
-    [TestMethod("Group Even And Odd")]
+    [TestMethod("Group Adjacent Even And Odd")]
     public async Task GroupEvenAndOdd() {
-      int[] data = Enumerable
-        .Range(0, 1000)
-        .ToArray();
+      int[] data = new int[] { 1, 3, 5, 2, 4, 7 };
 
-      int[] expected = data
-        .GroupBy(item => item % 2)
-        .Select(group => group.Sum())
-        .ToArray();
+      int[] expected = new int[] { 9, 6, 7 };
 
       int[] result = await data
         .ToChannelReader()
-        .GroupBy(item => item % 2)
+        .GroupByAdjacent(item => item % 2)
         .Select(group => group.Reader.Aggregate((s, a) => s + a))
         .WhenAll()
         .ToArrayAsync();
