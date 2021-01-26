@@ -3,8 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Amphisbaena.Tests {
+namespace Amphisbaena.Tests.Linq {
 
+  [TestCategory("Linq.Statistics")]
   [TestClass]
   public class TestStatistics {
     [TestMethod]

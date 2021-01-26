@@ -44,6 +44,13 @@ namespace Amphisbaena {
   public static class ChannelBalancerStrategyExtensions {
     #region Public
 
+    /// <summary>
+    /// Create Balancer from enumeration
+    /// </summary>
+    /// <param name="strategy">Straregy</param>
+    /// <param name="actors">Actors to use</param>
+    /// <param name="load">Actors load (burden)</param>
+    /// <returns></returns>
     public static Balancer<T> Create<T>(this ChannelBalancerStrategy strategy,
                                              IEnumerable<T> actors,
                                              Func<T, double> load) {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Amphisbaena.Tests {
+namespace Amphisbaena.Tests.Linq {
 
   //-------------------------------------------------------------------------------------------------------------------
   //
@@ -14,6 +14,7 @@ namespace Amphisbaena.Tests {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
+  [TestCategory("Linq.GroupBy")]
   [TestClass]
   public class TestGroupBy {
     #region Public
