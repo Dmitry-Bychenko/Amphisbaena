@@ -18,6 +18,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Cast 
     /// </summary>
+    /// <param name="reader">initial reader</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    /// <exception cref="InvalidCastException">When an item can't be cast</exception>
     public static ChannelReader<T> Cast<T, S>(this ChannelReader<S> reader, ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -47,12 +51,18 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Cast 
     /// </summary>
+    /// <param name="reader">initial reader</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    /// <exception cref="InvalidCastException">When an item can't be cast</exception>
     public static ChannelReader<T> Cast<T, S>(this ChannelReader<S> reader) =>
       Cast<T, S>(reader, default);
 
     /// <summary>
     /// Of Type 
     /// </summary>
+    /// <param name="reader">initial reader</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static ChannelReader<T> OfType<T, S>(this ChannelReader<S> reader, ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -80,6 +90,8 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// OfType 
     /// </summary>
+    /// <param name="reader">initial reader</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static ChannelReader<T> OfType<T, S>(this ChannelReader<S> reader) =>
       OfType<T, S>(reader, default);
 
