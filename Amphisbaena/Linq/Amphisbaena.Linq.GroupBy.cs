@@ -42,7 +42,7 @@ namespace Amphisbaena.Linq {
     public K Key { get; }
 
     /// <summary>
-    /// Reader
+    /// Reader for Values
     /// </summary>
     public ChannelReader<V> Reader => Channel.Reader;
 
@@ -73,6 +73,12 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="keyComparer">Key Comparer</param>
+    /// <param name="valueSelector">Value Selector</param>
+    /// <param name="options">Parallel Options</param>
+    /// <exception cref="ArgumentNullException">When reader, keySelector or ValueSelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V, S>(this ChannelReader<S> reader,
                                                                           Func<S, K> keySelector,
                                                                           Func<S, V> valueSelector,
@@ -127,6 +133,11 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="keyComparer">Key Comparer</param>
+    /// <param name="valueSelector">Value Selector</param>
+    /// <exception cref="ArgumentNullException">When reader, keySelector or ValueSelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V, S>(this ChannelReader<S> reader,
                                                                            Func<S, K> keySelector,
                                                                            Func<S, V> valueSelector,
@@ -136,6 +147,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="valueSelector">Value Selector</param>
+    /// <exception cref="ArgumentNullException">When reader, keySelector or ValueSelector is null</exception> 
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V, S>(this ChannelReader<S> reader,
                                                                            Func<S, K> keySelector,
                                                                            Func<S, V> valueSelector,
@@ -145,6 +160,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="valueSelector">Value Selector</param>
+    /// <exception cref="ArgumentNullException">When reader, keySelector or ValueSelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V, S>(this ChannelReader<S> reader,
                                                                           Func<S, K> keySelector,
                                                                           Func<S, V> valueSelector) =>
@@ -153,6 +172,11 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="keyComparer">Key Comparer</param>
+    /// <param name="options">Parallel Options</param>
+    /// <exception cref="ArgumentNullException">When reader or keySelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V>(this ChannelReader<V> reader,
                                                                        Func<V, K> keySelector,
                                                                        IEqualityComparer<K> keyComparer,
@@ -162,6 +186,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="keyComparer">Key Comparer</param>
+    /// <exception cref="ArgumentNullException">When reader or keySelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V>(this ChannelReader<V> reader,
                                                                        Func<V, K> keySelector,
                                                                        IEqualityComparer<K> keyComparer) =>
@@ -170,6 +198,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <param name="options">Parallel Options</param>
+    /// <exception cref="ArgumentNullException">When reader or keySelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V>(this ChannelReader<V> reader,
                                                                        Func<V, K> keySelector,
                                                                        ChannelParallelOptions options) =>
@@ -178,6 +210,9 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By 
     /// </summary>
+    /// <param name="reader">reader which items to group</param>
+    /// <param name="keySelector">Key selector</param>
+    /// <exception cref="ArgumentNullException">When reader or keySelector is null</exception>
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V>(this ChannelReader<V> reader,
                                                                        Func<V, K> keySelector) =>
       GroupBy<K, V, V>(reader, keySelector, x => x, default, default);
