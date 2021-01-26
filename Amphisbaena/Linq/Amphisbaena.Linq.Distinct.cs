@@ -19,6 +19,10 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Distinct
     /// </summary>
+    /// <param name="reader">reader to get values from</param>
+    /// <param name="comparer">comparer to compare two values to equality</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">when reader is null</exception>
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader,
                                                     IEqualityComparer<T> comparer,
                                                     ChannelParallelOptions options) {
@@ -52,18 +56,26 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Distinct
     /// </summary>
+    /// <param name="reader">reader to get values from</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">when reader is null</exception>
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader, IEqualityComparer<T> comparer) =>
       Distinct(reader, comparer, default);
 
     /// <summary>
     /// Distinct
     /// </summary>
+    /// <param name="reader">reader to get values from</param>
+    /// <param name="comparer">comparer to compare two values to equality</param>
+    /// <exception cref="ArgumentNullException">when reader is null</exception>
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
       Distinct(reader, default, options);
 
     /// <summary>
     /// Distinct
     /// </summary>
+    /// <param name="reader">reader to get values from</param>
+    /// <exception cref="ArgumentNullException">when reader is null</exception> 
     public static ChannelReader<T> Distinct<T>(this ChannelReader<T> reader) =>
       Distinct(reader, default, default);
 
