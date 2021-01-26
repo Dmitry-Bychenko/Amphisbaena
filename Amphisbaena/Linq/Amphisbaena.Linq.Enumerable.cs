@@ -20,6 +20,9 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// To AsyncEnumerable 
     /// </summary>
+    /// <param name="reader">reader to be converted into IAsyncEnumerable</param>
+    /// <param name="options">Parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static IAsyncEnumerable<T> ToAsyncEnumerable<T>(this ChannelReader<T> reader,
                                                                 ChannelParallelOptions options) {
       if (reader is null)
@@ -37,12 +40,17 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// To AsyncEnumerable 
     /// </summary>
+    /// <param name="reader">reader to be converted into IAsyncEnumerable</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static IAsyncEnumerable<T> ToAsyncEnumerable<T>(this ChannelReader<T> reader) =>
       ToAsyncEnumerable(reader, default);
 
     /// <summary>
     /// To Enumerable 
     /// </summary>
+    /// <param name="reader">reader to be converted into IAsyncEnumerable</param>
+    /// <param name="options">Parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static IEnumerable<T> ToEnumerable<T>(this ChannelReader<T> reader,
                                                       ChannelParallelOptions options) {
       if (reader is null)
@@ -86,6 +94,8 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// To Enumerable 
     /// </summary>
+    /// <param name="reader">reader to be converted into IAsyncEnumerable</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static IEnumerable<T> ToEnumerable<T>(this ChannelReader<T> reader) =>
       ToEnumerable(reader, default);
 
