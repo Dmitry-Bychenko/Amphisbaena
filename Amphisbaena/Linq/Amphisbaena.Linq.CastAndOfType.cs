@@ -36,10 +36,16 @@ namespace Amphisbaena.Linq {
 
       Task.Run(async () => {
         await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-          if (item is T rec)
+          try {
+            T rec = (T)(Convert.ChangeType(item, typeof(T)));
+
             await result.Writer.WriteAsync(rec, op.CancellationToken).ConfigureAwait(false);
-          else
-            throw new InvalidCastException("Cast failed to cast an item");
+          }
+          catch (Exception e) {
+            result.Writer.TryComplete();
+
+            throw new InvalidCastException("Cast failed to cast an item", e);
+          }
         }
 
         result.Writer.TryComplete();
@@ -77,8 +83,14 @@ namespace Amphisbaena.Linq {
 
       Task.Run(async () => {
         await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-          if (item is T rec)
+          try {
+            T rec = (T)(Convert.ChangeType(item, typeof(T)));
+
             await result.Writer.WriteAsync(rec, op.CancellationToken).ConfigureAwait(false);
+          }
+          catch (InvalidCastException) {
+            ;
+          }
         }
 
         result.Writer.TryComplete();
