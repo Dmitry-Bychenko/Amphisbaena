@@ -16,6 +16,7 @@ Eager Async LINQ to Objects</Description>
     <Copyright>Copyright (c) 2021 Dmitry Bychenko</Copyright>
     <DelaySign>false</DelaySign>
     <PackageTags>Linq Channel .Net 5</PackageTags>
+    <ApplicationIcon>Amphisbaena256x256.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
