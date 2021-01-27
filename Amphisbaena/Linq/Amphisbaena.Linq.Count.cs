@@ -47,19 +47,19 @@ namespace Amphisbaena.Linq {
     /// Count 
     /// </summary>
     public static async Task<long> Count<T>(this ChannelReader<T> reader, Func<T, bool> condition) =>
-      await Count(reader, condition, default);
+      await Count(reader, condition, default).ConfigureAwait(false);
 
     /// <summary>
     /// Count 
     /// </summary>
     public static async Task<long> Count<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await Count(reader, default, options);
+      await Count(reader, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Count 
     /// </summary>
     public static async Task<long> Count<T>(this ChannelReader<T> reader) =>
-      await Count(reader, default, default);
+      await Count(reader, default, default).ConfigureAwait(false);
 
     #endregion Count
 
@@ -100,7 +100,7 @@ namespace Amphisbaena.Linq {
     /// </summary>
     public static async Task<double> CountFraction<T>(this ChannelReader<T> reader,
                                                            Func<T, bool> condition) =>
-      await CountFraction(reader, condition, default);
+      await CountFraction(reader, condition, default).ConfigureAwait(false);
 
     #endregion Count Fraction
 

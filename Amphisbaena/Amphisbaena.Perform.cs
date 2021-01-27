@@ -67,7 +67,7 @@ namespace Amphisbaena {
     /// For All
     /// </summary>
     public static async Task ForAll<T>(this ChannelReader<T> reader, Action<T> action) =>
-      await ForAll(reader, action, default);
+      await ForAll(reader, action, default).ConfigureAwait(false);
 
     /// <summary>
     /// For Each (Parallelized Select) 

@@ -74,7 +74,7 @@ namespace Amphisbaena.Linq {
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           ChannelReader<T> other,
                                                           IEqualityComparer<T> comparer) =>
-      await SequenceEquals(reader, other, comparer, default);
+      await SequenceEquals(reader, other, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -86,7 +86,7 @@ namespace Amphisbaena.Linq {
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           ChannelReader<T> other,
                                                           ChannelParallelOptions options) =>
-      await SequenceEquals(reader, other, default, options);
+      await SequenceEquals(reader, other, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -96,7 +96,7 @@ namespace Amphisbaena.Linq {
     /// <returns>true, if readers have same items, order matters</returns>
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           ChannelReader<T> other) =>
-      await SequenceEquals(reader, other, default, default);
+      await SequenceEquals(reader, other, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -158,7 +158,7 @@ namespace Amphisbaena.Linq {
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           IAsyncEnumerable<T> other,
                                                           IEqualityComparer<T> comparer) =>
-      await SequenceEquals(reader, other, comparer, default);
+      await SequenceEquals(reader, other, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -170,7 +170,7 @@ namespace Amphisbaena.Linq {
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           IAsyncEnumerable<T> other,
                                                           ChannelParallelOptions options) =>
-      await SequenceEquals(reader, other, default, options);
+      await SequenceEquals(reader, other, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -180,7 +180,7 @@ namespace Amphisbaena.Linq {
     /// <returns>true, if readers have same items, order matters</returns>
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           IAsyncEnumerable<T> other) =>
-      await SequenceEquals(reader, other, default, default);
+      await SequenceEquals(reader, other, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -243,7 +243,7 @@ namespace Amphisbaena.Linq {
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           IEnumerable<T> other,
                                                           IEqualityComparer<T> comparer) =>
-      await SequenceEquals(reader, other, comparer, default);
+      await SequenceEquals(reader, other, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -255,7 +255,7 @@ namespace Amphisbaena.Linq {
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           IEnumerable<T> other,
                                                           ChannelParallelOptions options) =>
-      await SequenceEquals(reader, other, default, options);
+      await SequenceEquals(reader, other, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// If reader and other are equal
@@ -265,7 +265,7 @@ namespace Amphisbaena.Linq {
     /// <returns>true, if readers have same items, order matters</returns>
     public static async Task<bool> SequenceEquals<T>(this ChannelReader<T> reader,
                                                           IEnumerable<T> other) =>
-      await SequenceEquals(reader, other, default, default);
+      await SequenceEquals(reader, other, default, default).ConfigureAwait(false);
 
     #endregion Public
   }

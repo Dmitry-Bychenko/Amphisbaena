@@ -75,7 +75,7 @@ namespace Amphisbaena.Linq {
     public static async Task<R> Min<T, R>(this ChannelReader<T> reader,
                                                Func<T, R> selector,
                                                ChannelParallelOptions options) =>
-      await Min(reader, selector, default, options);
+      await Min(reader, selector, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Min
@@ -88,7 +88,7 @@ namespace Amphisbaena.Linq {
     public static async Task<R> Min<T, R>(this ChannelReader<T> reader,
                                                Func<T, R> selector,
                                                IComparer<R> comparer) =>
-      await Min(reader, selector, comparer, default);
+      await Min(reader, selector, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// Min
@@ -99,7 +99,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<R> Min<T, R>(this ChannelReader<T> reader,
                                                Func<T, R> selector) =>
-      await Min(reader, selector, default, default);
+      await Min(reader, selector, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// Min
@@ -112,7 +112,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> Min<T>(this ChannelReader<T> reader,
                                             IComparer<T> comparer,
                                             ChannelParallelOptions options) =>
-      await Min<T, T>(reader, x => x, comparer, options);
+      await Min<T, T>(reader, x => x, comparer, options).ConfigureAwait(false);
 
 
     /// <summary>
@@ -123,7 +123,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader, IComparer<T> comparer) =>
-      await Min<T, T>(reader, x => x, comparer, default);
+      await Min<T, T>(reader, x => x, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// Min
@@ -133,7 +133,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader, ChannelParallelOptions options)
-      where T : IComparable<T> => await Min<T, T>(reader, x => x, default, options);
+      where T : IComparable<T> => await Min<T, T>(reader, x => x, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Min
@@ -143,7 +143,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader)
-      where T : IComparable<T> => await Min<T, T>(reader, x => x, default, default);
+      where T : IComparable<T> => await Min<T, T>(reader, x => x, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -204,7 +204,7 @@ namespace Amphisbaena.Linq {
     public static async Task<R> Max<T, R>(this ChannelReader<T> reader,
                                                Func<T, R> selector,
                                                ChannelParallelOptions options) =>
-      await Max(reader, selector, default, options);
+      await Max(reader, selector, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -217,7 +217,7 @@ namespace Amphisbaena.Linq {
     public static async Task<R> Max<T, R>(this ChannelReader<T> reader,
                                                Func<T, R> selector,
                                                IComparer<R> comparer) =>
-      await Max(reader, selector, comparer, default);
+      await Max(reader, selector, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -228,7 +228,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<R> Max<T, R>(this ChannelReader<T> reader,
                                                Func<T, R> selector) =>
-      await Max(reader, selector, default, default);
+      await Max(reader, selector, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -241,7 +241,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> Max<T>(this ChannelReader<T> reader,
                                             IComparer<T> comparer,
                                             ChannelParallelOptions options) =>
-      await Max<T, T>(reader, x => x, comparer, options);
+      await Max<T, T>(reader, x => x, comparer, options).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -251,7 +251,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Max<T>(this ChannelReader<T> reader, IComparer<T> comparer) =>
-      await Max<T, T>(reader, x => x, comparer, default);
+      await Max<T, T>(reader, x => x, comparer, default).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -261,7 +261,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Max<T>(this ChannelReader<T> reader, ChannelParallelOptions options)
-      where T : IComparable<T> => await Max<T, T>(reader, x => x, default, options);
+      where T : IComparable<T> => await Max<T, T>(reader, x => x, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Max
@@ -270,7 +270,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Max<T>(this ChannelReader<T> reader)
-      where T : IComparable<T> => await Max<T, T>(reader, x => x, default, default);
+      where T : IComparable<T> => await Max<T, T>(reader, x => x, default, default).ConfigureAwait(false);
 
     #endregion Public
   }

@@ -62,7 +62,7 @@ namespace Amphisbaena.Linq {
                                                         A seed,
                                                         Func<A, S, A> accumulate,
                                                         Func<A, T> result) =>
-      await Aggregate(reader, seed, accumulate, result, default);
+      await Aggregate(reader, seed, accumulate, result, default).ConfigureAwait(false);
 
     /// <summary>
     /// Aggregate
@@ -76,7 +76,7 @@ namespace Amphisbaena.Linq {
                                                      T seed,
                                                      Func<T, S, T> accumulate,
                                                      ChannelParallelOptions options) =>
-      await Aggregate(reader, seed, accumulate, x => x, options);
+      await Aggregate(reader, seed, accumulate, x => x, options).ConfigureAwait(false);
 
     /// <summary>
     /// Aggregate
@@ -88,7 +88,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> Aggregate<T, S>(this ChannelReader<S> reader,
                                                      T seed,
                                                      Func<T, S, T> accumulate) =>
-      await Aggregate(reader, seed, accumulate, x => x, default);
+      await Aggregate(reader, seed, accumulate, x => x, default).ConfigureAwait(false);
 
     /// <summary>
     /// Aggregate
@@ -137,7 +137,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader or accumulate is null</exception>
     public static async Task<T> Aggregate<T>(this ChannelReader<T> reader,
                                                   Func<T, T, T> accumulate) =>
-      await Aggregate<T>(reader, accumulate, default);
+      await Aggregate<T>(reader, accumulate, default).ConfigureAwait(false);
 
     #endregion Public
   }

@@ -57,7 +57,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="ArgumentNullException">When condition is null</exception>
     public static async Task<bool> All<T>(this ChannelReader<T> reader, Func<T, bool> condition) =>
-      await All(reader, condition, default);
+      await All(reader, condition, default).ConfigureAwait(false);
 
     #endregion All
 
@@ -100,7 +100,7 @@ namespace Amphisbaena.Linq {
     /// <returns>true, if any item fit condition</returns>
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static async Task<bool> Any<T>(this ChannelReader<T> reader, Func<T, bool> condition) =>
-      await Any(reader, condition, default);
+      await Any(reader, condition, default).ConfigureAwait(false);
 
     /// <summary>
     /// Any
@@ -110,7 +110,7 @@ namespace Amphisbaena.Linq {
     /// <returns>true, if any item fit condition</returns>
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static async Task<bool> Any<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await Any(reader, default, options);
+      await Any(reader, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Any
@@ -119,7 +119,7 @@ namespace Amphisbaena.Linq {
     /// <returns>true, if any item fit condition</returns>
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static async Task<bool> Any<T>(this ChannelReader<T> reader) =>
-      await Any(reader, default, default);
+      await Any(reader, default, default).ConfigureAwait(false);
 
     #endregion Any
 

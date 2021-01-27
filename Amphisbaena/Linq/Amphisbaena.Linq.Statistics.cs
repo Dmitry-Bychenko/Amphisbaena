@@ -303,19 +303,19 @@ namespace Amphisbaena.Linq {
     /// To Statistics
     /// </summary>
     public static async Task<Statistics<T>> Statistics<T>(this ChannelReader<T> reader, Func<T, double> selector) =>
-      await Statistics(reader, selector, default);
+      await Statistics(reader, selector, default).ConfigureAwait(false);
 
     /// <summary>
     /// To Statistics
     /// </summary>
     public static async Task<Statistics<T>> Statistics<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await Statistics(reader, item => (double)Convert.ChangeType(item, typeof(double)), options);
+      await Statistics(reader, item => (double)Convert.ChangeType(item, typeof(double)), options).ConfigureAwait(false);
 
     /// <summary>
     /// To Statistics
     /// </summary>
     public static async Task<Statistics<T>> Statistics<T>(this ChannelReader<T> reader) =>
-      await Statistics(reader, item => (double)Convert.ChangeType(item, typeof(double)), default);
+      await Statistics(reader, item => (double)Convert.ChangeType(item, typeof(double)), default).ConfigureAwait(false);
 
     #endregion Public
   }

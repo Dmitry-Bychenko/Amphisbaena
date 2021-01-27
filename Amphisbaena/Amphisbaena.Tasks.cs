@@ -100,7 +100,7 @@ namespace Amphisbaena {
     /// To Task (Stub for awaiting)
     /// </summary>
     public static async Task ToTask<T>(this ChannelReader<T> reader) =>
-      await ToTask(reader, default);
+      await ToTask(reader, default).ConfigureAwait(false);
 
     #endregion Public
   }

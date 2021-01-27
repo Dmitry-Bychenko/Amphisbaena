@@ -48,7 +48,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
                                                        Func<T, bool> condition,
                                                        T defaultValue) =>
-      await FirstOrDefault(reader, condition, defaultValue, default);
+      await FirstOrDefault(reader, condition, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// First Or Default
@@ -56,14 +56,14 @@ namespace Amphisbaena.Linq {
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
                                                        Func<T, bool> condition,
                                                        ChannelParallelOptions options) =>
-      await FirstOrDefault(reader, condition, default, options);
+      await FirstOrDefault(reader, condition, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
                                                        Func<T, bool> condition) =>
-      await FirstOrDefault(reader, condition, default, default);
+      await FirstOrDefault(reader, condition, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// First Or Default
@@ -71,25 +71,25 @@ namespace Amphisbaena.Linq {
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader,
                                                        T defaultValue,
                                                        ChannelParallelOptions options) =>
-      await FirstOrDefault(reader, default, defaultValue, options);
+      await FirstOrDefault(reader, default, defaultValue, options).ConfigureAwait(false);
 
     /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader, T defaultValue) =>
-      await FirstOrDefault(reader, default, defaultValue, default);
+      await FirstOrDefault(reader, default, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await FirstOrDefault(reader, default, default, options);
+      await FirstOrDefault(reader, default, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// First Or Default
     /// </summary>
     public static async Task<T> FirstOrDefault<T>(this ChannelReader<T> reader) =>
-      await FirstOrDefault(reader, default, default, default);
+      await FirstOrDefault(reader, default, default, default).ConfigureAwait(false);
 
     #endregion First Or Default
 
@@ -124,19 +124,19 @@ namespace Amphisbaena.Linq {
     /// </summary>
     public static async Task<T> First<T>(this ChannelReader<T> reader,
                                                        Func<T, bool> condition) =>
-      await First(reader, condition, default);
+      await First(reader, condition, default).ConfigureAwait(false);
 
     /// <summary>
     /// First
     /// </summary>
     public static async Task<T> First<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await First(reader, default, options);
+      await First(reader, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// First
     /// </summary>
     public static async Task<T> First<T>(this ChannelReader<T> reader) =>
-      await First(reader, default, default);
+      await First(reader, default, default).ConfigureAwait(false);
 
     #endregion First
 
@@ -175,7 +175,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
                                                       Func<T, bool> condition,
                                                       T defaultValue) =>
-      await LastOrDefault(reader, condition, defaultValue, default);
+      await LastOrDefault(reader, condition, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// Last Or Default
@@ -183,14 +183,14 @@ namespace Amphisbaena.Linq {
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
                                                       Func<T, bool> condition,
                                                       ChannelParallelOptions options) =>
-      await LastOrDefault(reader, condition, default, options);
+      await LastOrDefault(reader, condition, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
                                                       Func<T, bool> condition) =>
-      await LastOrDefault(reader, condition, default, default);
+      await LastOrDefault(reader, condition, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// Last Or Default
@@ -198,25 +198,25 @@ namespace Amphisbaena.Linq {
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader,
                                                       T defaultValue,
                                                       ChannelParallelOptions options) =>
-      await LastOrDefault(reader, default, defaultValue, options);
+      await LastOrDefault(reader, default, defaultValue, options).ConfigureAwait(false);
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader, T defaultValue) =>
-      await LastOrDefault(reader, default, defaultValue, default);
+      await LastOrDefault(reader, default, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await LastOrDefault(reader, default, default, options);
+      await LastOrDefault(reader, default, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Last Or Default
     /// </summary>
     public static async Task<T> LastOrDefault<T>(this ChannelReader<T> reader) =>
-      await LastOrDefault(reader, default, default, default);
+      await LastOrDefault(reader, default, default, default).ConfigureAwait(false);
 
     #endregion Last Or Default
 
@@ -258,19 +258,19 @@ namespace Amphisbaena.Linq {
     /// </summary>
     public static async Task<T> Last<T>(this ChannelReader<T> reader,
                                              Func<T, bool> condition) =>
-      await Last(reader, condition, default);
+      await Last(reader, condition, default).ConfigureAwait(false);
 
     /// <summary>
     /// Last
     /// </summary>
     public static async Task<T> Last<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await Last(reader, default, options);
+      await Last(reader, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Last
     /// </summary>
     public static async Task<T> Last<T>(this ChannelReader<T> reader) =>
-      await Last(reader, default, default);
+      await Last(reader, default, default).ConfigureAwait(false);
 
     #endregion Last
 
@@ -319,7 +319,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
                                                         Func<T, bool> condition,
                                                         T defaultValue) =>
-      await SingleOrDefault(reader, condition, defaultValue, default);
+      await SingleOrDefault(reader, condition, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// Single Or Default
@@ -327,14 +327,14 @@ namespace Amphisbaena.Linq {
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
                                                         Func<T, bool> condition,
                                                         ChannelParallelOptions options) =>
-      await SingleOrDefault(reader, condition, default, options);
+      await SingleOrDefault(reader, condition, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
                                                         Func<T, bool> condition) =>
-      await SingleOrDefault(reader, condition, default, default);
+      await SingleOrDefault(reader, condition, default, default).ConfigureAwait(false);
 
     /// <summary>
     /// Single Or Default
@@ -342,25 +342,25 @@ namespace Amphisbaena.Linq {
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader,
                                                         T defaultValue,
                                                         ChannelParallelOptions options) =>
-      await SingleOrDefault(reader, default, defaultValue, options);
+      await SingleOrDefault(reader, default, defaultValue, options).ConfigureAwait(false);
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader, T defaultValue) =>
-      await SingleOrDefault(reader, default, defaultValue, default);
+      await SingleOrDefault(reader, default, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await SingleOrDefault(reader, default, default, options);
+      await SingleOrDefault(reader, default, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Single Or Default
     /// </summary>
     public static async Task<T> SingleOrDefault<T>(this ChannelReader<T> reader) =>
-      await SingleOrDefault(reader, default, default, default);
+      await SingleOrDefault(reader, default, default, default).ConfigureAwait(false);
 
     #endregion Single Or Default
 
@@ -409,19 +409,19 @@ namespace Amphisbaena.Linq {
     /// </summary>
     public static async Task<T> Single<T>(this ChannelReader<T> reader,
                                                Func<T, bool> condition) =>
-      await Single(reader, condition, default);
+      await Single(reader, condition, default).ConfigureAwait(false);
 
     /// <summary>
     /// Single
     /// </summary>
     public static async Task<T> Single<T>(this ChannelReader<T> reader, ChannelParallelOptions options) =>
-      await Single(reader, default, options);
+      await Single(reader, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Single
     /// </summary>
     public static async Task<T> Single<T>(this ChannelReader<T> reader) =>
-      await Single(reader, default, default);
+      await Single(reader, default, default).ConfigureAwait(false);
 
     #endregion Single
 
@@ -461,7 +461,7 @@ namespace Amphisbaena.Linq {
     public static async Task<T> ElementAtOrDefault<T>(this ChannelReader<T> reader,
                                                            long index,
                                                            T defaultValue) =>
-      await ElementAtOrDefault(reader, index, defaultValue, default);
+      await ElementAtOrDefault(reader, index, defaultValue, default).ConfigureAwait(false);
 
     /// <summary>
     /// Element At Or Default
@@ -469,13 +469,13 @@ namespace Amphisbaena.Linq {
     public static async Task<T> ElementAtOrDefault<T>(this ChannelReader<T> reader,
                                                            long index,
                                                            ChannelParallelOptions options) =>
-      await ElementAtOrDefault(reader, index, default, options);
+      await ElementAtOrDefault(reader, index, default, options).ConfigureAwait(false);
 
     /// <summary>
     /// Element At Or Default
     /// </summary>
     public static async Task<T> ElementAtOrDefault<T>(this ChannelReader<T> reader, long index) =>
-      await ElementAtOrDefault(reader, index, default, default);
+      await ElementAtOrDefault(reader, index, default, default).ConfigureAwait(false);
 
     #endregion Element At Or Default
 
@@ -513,7 +513,7 @@ namespace Amphisbaena.Linq {
     /// </summary>
     public static async Task<T> ElementAt<T>(this ChannelReader<T> reader,
                                                   long index) =>
-      await ElementAt(reader, index, default);
+      await ElementAt(reader, index, default).ConfigureAwait(false);
 
     #endregion Element At
 
