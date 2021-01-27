@@ -15,4 +15,21 @@ Despite different execution model, I've tried to preserve the [syntax](https://g
     .ToChannelReader()
     .Aggregate((s, a) => s + a);
  ```
+ 
+However, `async` brings some specific:
+
+```c#
+var strangeSum = await Enumerable
+  .Range(1, 1000)
+  .ToChannelReader()
+  .ToBatch((batch, item, index) => batch.Count < 100, 
+            new ChannelParallelOptions() { DegreeOfParallelism = 2 })
+  .ActForEach(batch => logger.Debug($"{batch.Length}"),
+              batch => batch.Length < 100)
+  .ForEach(batch => batch.Sum(), 
+           new ChannelParallelOptions() { DegreeOfParallelism = 4 })
+  .DetachAttach(item => item > 20_000,
+                process => process.Select(item => item * 2))
+  .Aggregate((s, a) => s + a);
+```
   
