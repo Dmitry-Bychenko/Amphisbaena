@@ -137,7 +137,8 @@ namespace Amphisbaena {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
 
-      condition ??= x => true;
+      if (condition is null)
+        throw new ArgumentNullException(nameof(condition));
 
       ChannelParallelOptions op = options is null
         ? new ChannelParallelOptions()
@@ -175,17 +176,6 @@ namespace Amphisbaena {
                                               out ChannelReader<T> detached,
                                                   Func<T, bool> condition) =>
       Detach(reader, out detached, condition, default);
-
-    /// <summary>
-    /// Detach
-    /// </summary>
-    /// <param name="reader">Initial reader to detach from</param>
-    /// <param name="detached">Detached channel</param>
-    /// <param name="options">Options</param>
-    public static ChannelReader<T> Detach<T>(this ChannelReader<T> reader,
-                                              out ChannelReader<T> detached,
-                                                  ChannelParallelOptions options) =>
-      Detach(reader, out detached, default, options);
 
     /// <summary>
     /// Detach
