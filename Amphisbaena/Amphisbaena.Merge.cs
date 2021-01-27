@@ -105,6 +105,28 @@ namespace Amphisbaena {
                                                   IEnumerable<ChannelReader<T>> readers) =>
       Attach(source, readers, default);
 
+    /// <summary>
+    /// Attach 
+    /// </summary>
+    public static ChannelReader<T> Attach<T>(this ChannelReader<T> source,
+                                                  ChannelReader<T> other,
+                                                  ChannelParallelOptions options) {
+      if (source is null)
+        throw new ArgumentNullException(nameof(source));
+      if (other is null)
+        throw new ArgumentNullException(nameof(other));
+      if (ReferenceEquals(source, other))
+        throw new ArgumentException("Attach to itself is not allowed", nameof(other));
+
+      return Attach(source, new ChannelReader<T>[] { other }, options);
+    }
+
+    /// <summary>
+    /// Attach 
+    /// </summary>
+    public static ChannelReader<T> Attach<T>(this ChannelReader<T> source, ChannelReader<T> other) =>
+      Attach(source, other, default);
+
     #endregion Public
   }
 

@@ -152,10 +152,10 @@ namespace Amphisbaena {
 
       Task.Run(async () => {
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-          await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
-
           if (condition(item))
             await detachedChannel.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+          else
+            await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
 
         result.Writer.TryComplete();

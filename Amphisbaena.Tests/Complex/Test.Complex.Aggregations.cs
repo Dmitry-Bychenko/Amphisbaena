@@ -28,6 +28,27 @@ namespace Amphisbaena.Tests.Complex {
       Assert.AreEqual(expected, actual);
     }
 
+    [TestMethod("Detach even")]
+    public async Task DetachTest() {
+      int[] data = Enumerable
+        .Range(0, 10)
+        .ToArray();
+
+      int expected = data
+        .Select(x => x % 2 == 0 ? -x : x)
+        .Sum();
+
+      int sumOdd = await data
+        .ToChannelReader()
+        .Detach(out var even, item => item % 2 == 0)
+        .Aggregate((s, a) => s + a);
+
+      int sumEven = await even
+        .Aggregate(0, (s, a) => s - a);
+
+      Assert.AreEqual(expected, sumOdd + sumEven);
+    }
+
     #endregion Public
   }
 
