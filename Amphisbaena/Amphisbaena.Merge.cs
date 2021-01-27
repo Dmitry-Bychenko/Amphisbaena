@@ -127,6 +127,62 @@ namespace Amphisbaena {
     public static ChannelReader<T> Attach<T>(this ChannelReader<T> source, ChannelReader<T> other) =>
       Attach(source, other, default);
 
+    /// <summary>
+    /// Detach, process, Attach back 
+    /// </summary>
+    public static ChannelReader<T> DetachAttach<T>(this ChannelReader<T> source,
+                                                        Func<T, bool> condition,
+                                                        Func<ChannelReader<T>, ChannelReader<T>> process,
+                                                        ChannelParallelOptions options) {
+      if (source is null)
+        throw new ArgumentNullException(nameof(source));
+      if (condition is null)
+        throw new ArgumentNullException(nameof(condition));
+      if (process is null)
+        throw new ArgumentNullException(nameof(process));
+
+      ChannelParallelOptions op = options is null
+        ? new ChannelParallelOptions()
+        : options.Clone();
+
+      op.CancellationToken.ThrowIfCancellationRequested();
+
+      Channel<T> result = op.CreateChannel<T>();
+      Channel<T> detached = op.CreateChannel<T>();
+      ChannelReader<T> detachedReader = process(detached.Reader);
+
+      Task detachedTask = Task.Run(async () => {
+        await foreach(T item in detachedReader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+          await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+        }
+      }, op.CancellationToken);
+
+      Task.Run(async () => {
+        await foreach (T item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+          if (!condition(item)) 
+            await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+          else
+            await detached.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
+        }
+
+        detached.Writer.TryComplete();
+
+        await detachedTask.ConfigureAwait(false);
+
+        result.Writer.TryComplete();
+      }, op.CancellationToken);
+
+      return result.Reader;
+    }
+
+    /// <summary>
+    /// Detach, process, Attach back 
+    /// </summary>
+    public static ChannelReader<T> DetachAttach<T>(this ChannelReader<T> source,
+                                                        Func<T, bool> condition,
+                                                        Func<ChannelReader<T>, ChannelReader<T>> process) =>
+      DetachAttach(source, condition, process, default);
+
     #endregion Public
   }
 

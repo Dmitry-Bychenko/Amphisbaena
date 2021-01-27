@@ -49,6 +49,45 @@ namespace Amphisbaena.Tests.Complex {
       Assert.AreEqual(expected, sumOdd + sumEven);
     }
 
+    [TestMethod("Attach even")]
+    public async Task AttachTest() {
+      int[] data = Enumerable
+        .Range(0, 100)
+        .ToArray();
+
+      int expected = data.Sum(item => item * 3);
+
+      int actual = await data
+        .ToChannelReader()
+        .Attach(data
+           .ToChannelReader()
+           .Select(item => item * 2))
+        .Aggregate((s, a) => s + a);
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod("Detach Attach")]
+    public async Task DetachAttach() {
+      int[] data = Enumerable
+        .Range(0, 10)
+        .ToArray();
+
+      int expected = data
+        .Select(x => x % 2 == 0 ? -x : x)
+        .Sum(item => item);
+
+      int actual = await data
+        .ToChannelReader()
+        .DetachAttach(
+           item => item % 2 == 0,
+           reader => reader.Select(x => -x)
+         )
+        .Aggregate((s, a) => s + a);
+
+      Assert.AreEqual(expected, actual);
+    }
+
     #endregion Public
   }
 
