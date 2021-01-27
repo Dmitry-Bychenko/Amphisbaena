@@ -1,5 +1,6 @@
 ﻿using Amphisbaena.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,29 +14,20 @@ namespace Amphisbaena.Tests.Linq {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-  [TestCategory("Linq.Distinct")]
+  [TestCategory("Linq.Concat")]
   [TestClass()]
-  public sealed class DistinctTest {
-    [TestMethod("Distinct remove")]
+  public sealed class ConcatTest {
+    [TestMethod("Simple Concat")]
     public async Task DistinctRemove() {
-      int[] data = new int[] { 1, 2, 3, 4, 2, 2, 3 };
+      int[] data = new int[] { 1, 2, 3 };
 
       bool result = await data
         .ToChannelReader()
+        .Concat(new int[] { 4, 5},
+                Array.Empty<int>(),
+                new int[] { 6})
         .Distinct()
-        .SequenceEquals(new int[] { 1, 2, 3, 4 });
-
-      Assert.IsTrue(result);
-    }
-
-    [TestMethod("Distinct keep")]
-    public async Task DistinctKeep() {
-      int[] data = new int[] { 1, 3, 2, 4 };
-
-      bool result = await data
-        .ToChannelReader()
-        .Distinct()
-        .SequenceEquals(data);
+        .SequenceEquals(new int[] { 1, 2, 3, 4, 5, 6 });
 
       Assert.IsTrue(result);
     }
