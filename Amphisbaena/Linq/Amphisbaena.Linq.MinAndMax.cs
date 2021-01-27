@@ -26,7 +26,7 @@ namespace Amphisbaena.Linq {
     /// <exception cref="ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<R> Min<T, R>(this ChannelReader<T> reader,
-                                               Func<T, R> selector, 
+                                               Func<T, R> selector,
                                                IComparer<R> comparer,
                                                ChannelParallelOptions options) {
       if (reader is null)
@@ -113,7 +113,7 @@ namespace Amphisbaena.Linq {
                                             IComparer<T> comparer,
                                             ChannelParallelOptions options) =>
       await Min<T, T>(reader, x => x, comparer, options);
-       
+
 
     /// <summary>
     /// Min

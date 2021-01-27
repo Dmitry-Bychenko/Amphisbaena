@@ -63,10 +63,10 @@ namespace Amphisbaena.Linq {
 
               await result.Writer.WriteAsync(group, op.CancellationToken).ConfigureAwait(false);
             }
-            
+
             group = new ChannelGroup<K, V>(key, op);
           }
-            
+
           await group.Channel.Writer.WriteAsync(value, op.CancellationToken).ConfigureAwait(false);
         }
 

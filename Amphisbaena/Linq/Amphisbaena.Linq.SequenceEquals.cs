@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -229,7 +228,7 @@ namespace Amphisbaena.Linq {
       }
       finally {
         await left.DisposeAsync().ConfigureAwait(false);
-        
+
         right.Dispose();
       }
     }

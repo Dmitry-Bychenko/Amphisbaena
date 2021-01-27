@@ -1,7 +1,5 @@
 ﻿using Amphisbaena.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Amphisbaena.Tests.Linq {
@@ -16,13 +14,13 @@ namespace Amphisbaena.Tests.Linq {
   [TestCategory("Linq.MinAndMax")]
   [TestClass]
   public sealed class SequenceEqualsTest {
-    
+
     [TestMethod("Reader {5, 7, 9} == {5, 7, 9}")]
     public async Task SequenceEqualsToReader() {
       int[] data = new int[] { 5, 7, 9 };
 
       int[] other = new int[] { 5, 7, 9 };
-          
+
       Assert.IsTrue(await data.ToChannelReader().SequenceEquals(other), "Reader to IEnumerable");
       Assert.IsTrue(await data.ToChannelReader().SequenceEquals(other.ToChannelReader()), "Reader to Reader");
     }

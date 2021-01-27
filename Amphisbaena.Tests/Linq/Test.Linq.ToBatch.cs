@@ -20,7 +20,7 @@ namespace Amphisbaena.Tests.Linq {
         .Skip(2)
         .FirstOrDefault();
 
-      Assert.IsTrue(new int[] { 8, 9, 10, 11}.SequenceEqual(actual));
+      Assert.IsTrue(new int[] { 8, 9, 10, 11 }.SequenceEqual(actual));
     }
   }
 }

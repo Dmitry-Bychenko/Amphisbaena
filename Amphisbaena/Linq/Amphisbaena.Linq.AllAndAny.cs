@@ -39,7 +39,7 @@ namespace Amphisbaena.Linq {
         : options.Clone();
 
       op.CancellationToken.ThrowIfCancellationRequested();
-            
+
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
         if (!condition(item))
           return false;

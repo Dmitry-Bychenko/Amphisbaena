@@ -1,6 +1,5 @@
 ﻿using Amphisbaena.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace Amphisbaena.Tests.Linq {
   [TestCategory("Linq.Select")]
   [TestClass]
   public sealed class SelectTest {
-    
+
     [TestMethod("SelectMany")]
     public async Task SelectManyTest() {
       int[][] data = new int[][] {

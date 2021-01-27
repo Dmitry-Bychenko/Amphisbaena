@@ -29,7 +29,7 @@ namespace Amphisbaena.Tests.Core {
 
       var result = data
         .ToChannelReader()
-        .ToEnumerable(new ChannelParallelOptions() { Capacity = 100})
+        .ToEnumerable(new ChannelParallelOptions() { Capacity = 100 })
         .ToArray();
 
       Assert.AreEqual(data.Length, result.Length);

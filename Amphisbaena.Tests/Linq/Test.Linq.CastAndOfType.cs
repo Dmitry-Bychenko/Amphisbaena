@@ -1,7 +1,5 @@
-﻿using Amphisbaena;
-using Amphisbaena.Linq;
+﻿using Amphisbaena.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,7 +18,7 @@ namespace Amphisbaena.Tests.Linq {
   public sealed class CastAndOfTypeTest {
     [TestMethod("Cast int to long")]
     public async Task CastIntToLong() {
-      int[] data = new int[] { 1, 2, 3};
+      int[] data = new int[] { 1, 2, 3 };
 
       long actual = await data
         .ToChannelReader()

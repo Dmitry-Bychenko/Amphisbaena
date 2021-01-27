@@ -149,17 +149,18 @@ namespace Amphisbaena {
 
       Channel<T> result = op.CreateChannel<T>();
       Channel<T> detached = op.CreateChannel<T>();
+
       ChannelReader<T> detachedReader = process(detached.Reader);
 
       Task detachedTask = Task.Run(async () => {
-        await foreach(T item in detachedReader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (T item in detachedReader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
         }
       }, op.CancellationToken);
 
       Task.Run(async () => {
         await foreach (T item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
-          if (!condition(item)) 
+          if (!condition(item))
             await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
           else
             await detached.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);

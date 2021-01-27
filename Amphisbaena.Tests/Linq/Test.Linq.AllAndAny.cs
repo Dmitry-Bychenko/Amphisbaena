@@ -28,7 +28,7 @@ namespace Amphisbaena.Tests.Linq {
 
     [TestMethod("All Even in Array")]
     public async Task AllEven() {
-      bool actual = await (new int[] { 2, 124, 8}
+      bool actual = await (new int[] { 2, 124, 8 }
         .ToChannelReader()
         .All(x => x % 2 == 0));
 
@@ -55,7 +55,7 @@ namespace Amphisbaena.Tests.Linq {
 
     [TestMethod("Not Any Even on Array")]
     public async Task NotAnyEven() {
-      bool actual = await (new int[] { 3, 5, 137, 9}
+      bool actual = await (new int[] { 3, 5, 137, 9 }
         .ToChannelReader()
         .Any(x => x % 2 == 0));
 
@@ -85,7 +85,7 @@ namespace Amphisbaena.Tests.Linq {
 
     [TestMethod("Default on Not Empty")]
     public async Task NotEmpty() {
-      int[] data = new int[] { 88, 93};
+      int[] data = new int[] { 88, 93 };
 
       int[] result = await data
         .ToChannelReader()

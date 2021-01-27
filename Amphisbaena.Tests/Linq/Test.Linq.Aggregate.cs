@@ -21,7 +21,7 @@ namespace Amphisbaena.Tests.Linq {
 
     private static readonly long[] data = Enumerable
       .Range(0, 100)
-      .Select(x => (long) x)
+      .Select(x => (long)x)
       .OrderBy(x => Guid.NewGuid())
       .ToArray();
 
