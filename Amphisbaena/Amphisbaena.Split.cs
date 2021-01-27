@@ -19,19 +19,24 @@ namespace Amphisbaena {
     /// <summary>
     /// Split into several readers
     /// </summary>
-    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> source,
+    /// <param name="reader">reader to split</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> reader,
                                                    ChannelParallelOptions options) {
-      if (source is null)
-        throw new ArgumentNullException(nameof(source));
+      if (reader is null)
+        throw new ArgumentNullException(nameof(reader));
 
       ChannelParallelOptions op = options is null
-        ? new ChannelParallelOptions()
+        ? new ChannelParallelOptions() {
+          DegreeOfParallelism = Environment.ProcessorCount
+        }
         : options.Clone();
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
       if (op.Capacity == 1)
-        return new ChannelReader<T>[] { source };
+        return new ChannelReader<T>[] { reader };
 
       Channel<T>[] result = Enumerable
         .Range(0, op.Capacity)
@@ -41,7 +46,7 @@ namespace Amphisbaena {
       Task.Run(async () => {
         var balancer = op.CreateBalancer(result);
 
-        await foreach (var item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+        await foreach (var item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           Channel<T> channel = balancer.NextActor();
 
           await channel.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
@@ -55,6 +60,15 @@ namespace Amphisbaena {
         .Select(ch => ch.Reader)
         .ToArray();
     }
+
+    /// <summary>
+    /// Split into several readers
+    /// </summary>
+    /// <param name="reader">reader to split</param>
+    /// <exception cref="ArgumentNullException">When reader is null</exception>
+    public static ChannelReader<T>[] Split<T>(this ChannelReader<T> reader) =>
+      Split(reader, new ChannelParallelOptions() { 
+        DegreeOfParallelism = Environment.ProcessorCount });
 
     #endregion Public
   }
