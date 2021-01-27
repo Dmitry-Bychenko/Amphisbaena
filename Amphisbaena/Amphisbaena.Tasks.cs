@@ -16,9 +16,12 @@ namespace Amphisbaena {
     #region Public
 
     /// <summary>
-    /// When All
+    /// When All: turn Task<T> into T
     /// </summary>
-    public static ChannelReader<T> WhenAll<T>(this ChannelReader<Task<T>> reader, ChannelParallelOptions options) {
+    /// <param name="reader">reader to convert</param>
+    /// <param name="options">parallel options</param>
+    public static ChannelReader<T> WhenAll<T>(this ChannelReader<Task<T>> reader, 
+                                                   ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
 
@@ -42,15 +45,19 @@ namespace Amphisbaena {
     }
 
     /// <summary>
-    /// When All
+    /// When All: turn Task<T> into T
     /// </summary>
+    /// <param name="reader">reader to convert</param>
     public static ChannelReader<T> WhenAll<T>(this ChannelReader<Task<T>> reader) =>
       WhenAll(reader, default);
 
     /// <summary>
-    /// When All
+    /// When All turn ValueTask<T> to T
     /// </summary>
-    public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader, ChannelParallelOptions options) {
+    /// <param name="reader">reader to convert</param>
+    /// <param name="options">parallel options</param>
+    public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader, 
+                                                   ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
 
@@ -74,15 +81,19 @@ namespace Amphisbaena {
     }
 
     /// <summary>
-    /// When All
+    /// When All turn Task<T> into T
     /// </summary>
+    /// <param name="reader">reader to convert</param>
     public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader) =>
       WhenAll(reader, default);
 
     /// <summary>
     /// To Task (Stub for awaiting)
     /// </summary>
-    public static async Task ToTask<T>(this ChannelReader<T> reader, ChannelParallelOptions options) {
+    /// <param name="reader">reader to convert</param>
+    /// <param name="options">parallel options</param>
+    public static async Task ToTask<T>(this ChannelReader<T> reader, 
+                                            ChannelParallelOptions options) {
       if (reader is null)
         return;
 
@@ -99,6 +110,7 @@ namespace Amphisbaena {
     /// <summary>
     /// To Task (Stub for awaiting)
     /// </summary>
+    /// <param name="reader">reader to convert</param>
     public static async Task ToTask<T>(this ChannelReader<T> reader) =>
       await ToTask(reader, default).ConfigureAwait(false);
 
