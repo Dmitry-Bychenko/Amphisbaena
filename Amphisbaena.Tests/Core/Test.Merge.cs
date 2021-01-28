@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 namespace Amphisbaena.Tests.Core {
 
   [TestClass]
-  public class SplitTest {
-    [TestMethod("Simple Split")]
-    public async Task SplitAggregate() {
+  public class MergeTest {
+    [TestMethod("Simple Merge")]
+    public async Task SimpleMerge() {
       int[] data = Enumerable
-        .Range(1, 120)
-        .ToArray();
-
-      int result = 0;
+       .Range(1, 120)
+       .ToArray();
 
       var channels = data
         .ToChannelReader()
         .Split(new ChannelParallelOptions());
 
-      Task<int>[] sums = channels
-        .Select(channel => channel.Aggregate((s, a) => s + a))
+      var next = channels
+        .Select(channel => channel.Select(item => item * 2))
         .ToArray();
 
-      await Task.WhenAll(sums);
-
-      foreach (var t in sums)
-        result += await t;
+      int result = await next
+        .Merge()
+        .Select(x => x / 2)
+        .Aggregate((s, a) => s + a);
 
       Assert.IsTrue(data.Sum() == result);
+
     }
+
   }
 }

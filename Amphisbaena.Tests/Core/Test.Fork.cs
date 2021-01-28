@@ -29,16 +29,16 @@ namespace Amphisbaena.Tests.Core {
         .Fork(x => x % 2 == 0,
               x => x % 2 != 0);
 
-      var maxTask = forks[0].Max();
-      var minTask = forks[1].Min();
+      var evenTask = forks[0].Max();
+      var oddTask = forks[1].Max();
 
-      await Task.WhenAll(maxTask, minTask);
+      await Task.WhenAll(evenTask, oddTask);
 
-      int max = await maxTask;
-      int min = await minTask;
+      int even = await evenTask;
+      int odd = await oddTask;
 
-      Assert.AreEqual(9998, max);
-      Assert.AreEqual(1, min);
+      Assert.AreEqual(9998, even);
+      Assert.AreEqual(9999, odd);
     }
 
 
