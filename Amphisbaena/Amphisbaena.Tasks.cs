@@ -20,7 +20,7 @@ namespace Amphisbaena {
     /// </summary>
     /// <param name="reader">reader to convert</param>
     /// <param name="options">parallel options</param>
-    public static ChannelReader<T> WhenAll<T>(this ChannelReader<Task<T>> reader, 
+    public static ChannelReader<T> WhenAll<T>(this ChannelReader<Task<T>> reader,
                                                    ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -56,7 +56,7 @@ namespace Amphisbaena {
     /// </summary>
     /// <param name="reader">reader to convert</param>
     /// <param name="options">parallel options</param>
-    public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader, 
+    public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader,
                                                    ChannelParallelOptions options) {
       if (reader is null)
         throw new ArgumentNullException(nameof(reader));
@@ -92,7 +92,7 @@ namespace Amphisbaena {
     /// </summary>
     /// <param name="reader">reader to convert</param>
     /// <param name="options">parallel options</param>
-    public static async Task ToTask<T>(this ChannelReader<T> reader, 
+    public static async Task ToTask<T>(this ChannelReader<T> reader,
                                             ChannelParallelOptions options) {
       if (reader is null)
         return;

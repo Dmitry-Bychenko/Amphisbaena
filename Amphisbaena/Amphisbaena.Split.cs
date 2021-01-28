@@ -67,8 +67,9 @@ namespace Amphisbaena {
     /// <param name="reader">reader to split</param>
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     public static ChannelReader<T>[] Split<T>(this ChannelReader<T> reader) =>
-      Split(reader, new ChannelParallelOptions() { 
-        DegreeOfParallelism = Environment.ProcessorCount });
+      Split(reader, new ChannelParallelOptions() {
+        DegreeOfParallelism = Environment.ProcessorCount
+      });
 
     #endregion Public
   }

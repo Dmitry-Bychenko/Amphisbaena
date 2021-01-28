@@ -23,9 +23,9 @@ namespace Amphisbaena.Tests.Linq {
 
       bool result = await data
         .ToChannelReader()
-        .Concat(new int[] { 4, 5},
+        .Concat(new int[] { 4, 5 },
                 Array.Empty<int>(),
-                new int[] { 6})
+                new int[] { 6 })
         .Distinct()
         .SequenceEquals(new int[] { 1, 2, 3, 4, 5, 6 });
 

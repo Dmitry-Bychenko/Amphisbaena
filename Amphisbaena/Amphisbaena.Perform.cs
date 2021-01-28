@@ -20,6 +20,10 @@ namespace Amphisbaena {
     /// <summary>
     /// For All
     /// </summary>
+    /// <param name="reader">reader to get items from</param>
+    /// <param name="action">action to perform on each item</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader or action is null</exception>
     public static async Task ForAll<T>(this ChannelReader<T> reader,
                                             Action<T> action,
                                             ChannelParallelOptions options) {
@@ -67,12 +71,19 @@ namespace Amphisbaena {
     /// <summary>
     /// For All
     /// </summary>
+    /// <param name="reader">reader to get items from</param>
+    /// <param name="action">action to perform on each item</param>
+    /// <exception cref="ArgumentNullException">When reader or action is null</exception>
     public static async Task ForAll<T>(this ChannelReader<T> reader, Action<T> action) =>
       await ForAll(reader, action, default).ConfigureAwait(false);
 
     /// <summary>
     /// For Each (Parallelized Select) 
     /// </summary>
+    /// <param name="reader">reader to get items from</param>
+    /// <param name="selector">action to perform on each item</param>
+    /// <param name="options">parallel options</param>
+    /// <exception cref="ArgumentNullException">When reader or selector is null</exception>
     public static ChannelReader<T> ForEach<S, T>(this ChannelReader<S> reader,
                                                       Func<S, T> selector,
                                                       ChannelParallelOptions options) {
@@ -96,7 +107,7 @@ namespace Amphisbaena {
           while (actors.Count >= op.DegreeOfParallelism)
             actors.Remove(await Task.WhenAny(actors));
 
-          actors.Add(Task.Run(async () => 
+          actors.Add(Task.Run(async () =>
             await result.Writer.WriteAsync(selector(item), op.CancellationToken).ConfigureAwait(false)
           ));
         }
@@ -112,6 +123,9 @@ namespace Amphisbaena {
     /// <summary>
     /// For Each (Parallelized Select) 
     /// </summary>
+    /// <param name="reader">reader to get items from</param>
+    /// <param name="selector">action to perform on each item</param>
+    /// <exception cref="ArgumentNullException">When reader or selector is null</exception>
     public static ChannelReader<T> ForEach<S, T>(this ChannelReader<S> reader, Func<S, T> selector) =>
       ForEach(reader, selector, default);
 

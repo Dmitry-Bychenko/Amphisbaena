@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
@@ -14,7 +14,7 @@ namespace Amphisbaena.Linq {
   //
   //-------------------------------------------------------------------------------------------------------------------
 
-   public static partial class ChannelReaderExtensions {
+  public static partial class ChannelReaderExtensions {
     #region Public
 
     /// <summary>
@@ -23,7 +23,7 @@ namespace Amphisbaena.Linq {
     /// <param name="reader">initial reader</param>
     /// <param name="other">other readers to concat</param>
     /// <param name="options">parallel options</param>
-    public static ChannelReader<T> Concat<T>(this ChannelReader<T> reader, 
+    public static ChannelReader<T> Concat<T>(this ChannelReader<T> reader,
                                                   IEnumerable<ChannelReader<T>> other,
                                                   ChannelParallelOptions options) {
       if (reader is null)
@@ -48,9 +48,9 @@ namespace Amphisbaena.Linq {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
-        await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) 
+        await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
           await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
-        
+
         foreach (var rd in data)
           await foreach (T item in rd.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
             await result.Writer.WriteAsync(item, op.CancellationToken).ConfigureAwait(false);
