@@ -96,11 +96,9 @@ namespace Amphisbaena {
           while (actors.Count >= op.DegreeOfParallelism)
             actors.Remove(await Task.WhenAny(actors));
 
-          actors.Add(Task.Run(async () => {
-            //T target = selector(item);
-
-            await result.Writer.WriteAsync(selector(item), op.CancellationToken).ConfigureAwait(false);
-          }));
+          actors.Add(Task.Run(async () => 
+            await result.Writer.WriteAsync(selector(item), op.CancellationToken).ConfigureAwait(false)
+          ));
         }
 
         await Task.WhenAll(actors).ConfigureAwait(false);
