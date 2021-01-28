@@ -21,13 +21,6 @@ namespace Amphisbaena.Tests.Core {
     public void CreateBalancer() {
       ChannelParallelOptions op = new ChannelParallelOptions();
 
-      var channels = Enumerable
-        .Range(0, 12)
-        .Select(_ => Channel.CreateUnbounded<int>())
-        .ToArray();
-
-      var balancer = op.CreateBalancer<int>(channels);
-
       Assert.AreEqual(Environment.ProcessorCount, op.DegreeOfParallelism);
     }
 
