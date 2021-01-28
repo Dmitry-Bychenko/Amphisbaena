@@ -27,7 +27,10 @@ namespace Amphisbaena {
 
     #region Algorithm
 
-    internal Channel<T> CreateChannel<T>() {
+    /// <summary>
+    /// Create Channel based on settings
+    /// </summary>
+    public Channel<T> CreateChannel<T>() {
       if (Capacity <= 0)
         return Channel.CreateUnbounded<T>();
       else {
@@ -41,7 +44,11 @@ namespace Amphisbaena {
       }
     }
 
-    internal Balancer<Channel<T>> CreateBalancer<T>(IEnumerable<Channel<T>> actors) => BalancingStrategy
+    /// <summary>
+    /// Create Balancer based on Parallel Options
+    /// </summary>
+    /// <param name="actors">Actors to Balance</param>
+    public Balancer<Channel<T>> CreateBalancer<T>(IEnumerable<Channel<T>> actors) => BalancingStrategy
       .Create<Channel<T>>(actors, channel => channel.Reader.Count);
 
     #endregion Algorithm

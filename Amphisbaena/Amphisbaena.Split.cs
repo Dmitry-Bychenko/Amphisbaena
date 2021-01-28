@@ -28,18 +28,16 @@ namespace Amphisbaena {
         throw new ArgumentNullException(nameof(reader));
 
       ChannelParallelOptions op = options is null
-        ? new ChannelParallelOptions() {
-          DegreeOfParallelism = Environment.ProcessorCount
-        }
+        ? new ChannelParallelOptions() { DegreeOfParallelism = Environment.ProcessorCount }
         : options.Clone();
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      if (op.Capacity == 1)
+      if (op.DegreeOfParallelism == 1)
         return new ChannelReader<T>[] { reader };
 
       Channel<T>[] result = Enumerable
-        .Range(0, op.Capacity)
+        .Range(0, op.DegreeOfParallelism)
         .Select(_x => op.CreateChannel<T>())
         .ToArray();
 
