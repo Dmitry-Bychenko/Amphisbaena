@@ -110,7 +110,7 @@ namespace Amphisbaena {
     }
 
     /// <summary>
-    /// Channel Capacity (unbounded, if capacity <= 0) 
+    /// Channel Capacity (unbounded, if capacity &lt;= 0) 
     /// </summary>
     public int Capacity {
       get => m_Capacity;

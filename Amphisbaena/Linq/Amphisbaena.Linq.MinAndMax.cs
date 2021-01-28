@@ -139,7 +139,6 @@ namespace Amphisbaena.Linq {
     /// Min
     /// </summary>
     /// <param name="reader">Initial ChannelReader to aggregate</param>
-    /// <param name="options">Options</param>
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="InvalidOperationException">When reader is empty</exception>
     public static async Task<T> Min<T>(this ChannelReader<T> reader)

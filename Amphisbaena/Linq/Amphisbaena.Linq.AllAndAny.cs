@@ -52,7 +52,6 @@ namespace Amphisbaena.Linq {
     /// </summary>
     /// <param name="reader">Channel Reader to test</param>
     /// <param name="condition">Condition to test</param>
-    /// <param name="options">Parallel Options to use</param>
     /// <returns>true, if all items fit condition</returns>
     /// <exception cref="ArgumentNullException">When reader is null</exception>
     /// <exception cref="ArgumentNullException">When condition is null</exception>

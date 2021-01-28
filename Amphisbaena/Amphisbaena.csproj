@@ -21,8 +21,9 @@ Eager Async LINQ to Objects</Description>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
-    <DocumentationFile></DocumentationFile>
+    <Optimize>true</Optimize>
+    <DocumentationFile>C:\Works\CS\Amphisbaena\Amphisbaena\Amphisbaena.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
 </Project>

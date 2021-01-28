@@ -134,9 +134,8 @@ namespace Amphisbaena.Linq {
     /// <summary>
     /// Group By adjacent items only
     /// </summary>
-    /// <typeparam name="S">Source</typeparam>
-    /// <typeparam name="K">Key</typeparam>
-    /// <typeparam name="V">Value</typeparam>
+    /// <typeparam name="S">Source Type</typeparam>
+    /// <typeparam name="K">Key Type</typeparam>
     /// <param name="reader">reader to group</param>
     /// <param name="keySelector">Key from source</param>
     /// <param name="comparer">Keys comparer</param>
@@ -153,7 +152,6 @@ namespace Amphisbaena.Linq {
     /// </summary>
     /// <typeparam name="S">Source</typeparam>
     /// <typeparam name="K">Key</typeparam>
-    /// <typeparam name="V">Value</typeparam>
     /// <param name="reader">reader to group</param>
     /// <param name="keySelector">Key from source</param>
     /// <param name="comparer">Keys comparer</param>
@@ -168,7 +166,6 @@ namespace Amphisbaena.Linq {
     /// </summary>
     /// <typeparam name="S">Source</typeparam>
     /// <typeparam name="K">Key</typeparam>
-    /// <typeparam name="V">Value</typeparam>
     /// <param name="reader">reader to group</param>
     /// <param name="keySelector">Key from source</param>
     /// <param name="options">Parallel options</param>
@@ -183,7 +180,6 @@ namespace Amphisbaena.Linq {
     /// </summary>
     /// <typeparam name="S">Source</typeparam>
     /// <typeparam name="K">Key</typeparam>
-    /// <typeparam name="V">Value</typeparam>
     /// <param name="reader">reader to group</param>
     /// <param name="keySelector">Key from source</param>
     /// <returns>Groups of adjacent items</returns>

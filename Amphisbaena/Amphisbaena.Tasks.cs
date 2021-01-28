@@ -16,7 +16,7 @@ namespace Amphisbaena {
     #region Public
 
     /// <summary>
-    /// When All: turn Task<T> into T
+    /// When All: turn Task&lt;T&gt; into T
     /// </summary>
     /// <param name="reader">reader to convert</param>
     /// <param name="options">parallel options</param>
@@ -45,14 +45,14 @@ namespace Amphisbaena {
     }
 
     /// <summary>
-    /// When All: turn Task<T> into T
+    /// When All: turn Task&lt;T&gt; into T
     /// </summary>
     /// <param name="reader">reader to convert</param>
     public static ChannelReader<T> WhenAll<T>(this ChannelReader<Task<T>> reader) =>
       WhenAll(reader, default);
 
     /// <summary>
-    /// When All turn ValueTask<T> to T
+    /// When All turn ValueTask&lt;T&gt; to T
     /// </summary>
     /// <param name="reader">reader to convert</param>
     /// <param name="options">parallel options</param>
@@ -81,7 +81,7 @@ namespace Amphisbaena {
     }
 
     /// <summary>
-    /// When All turn Task<T> into T
+    /// When All turn Task&lt;T&gt; into T
     /// </summary>
     /// <param name="reader">reader to convert</param>
     public static ChannelReader<T> WhenAll<T>(this ChannelReader<ValueTask<T>> reader) =>

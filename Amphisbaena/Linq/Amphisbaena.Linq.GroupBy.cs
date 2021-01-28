@@ -150,6 +150,7 @@ namespace Amphisbaena.Linq {
     /// <param name="reader">reader which items to group</param>
     /// <param name="keySelector">Key selector</param>
     /// <param name="valueSelector">Value Selector</param>
+    /// <param name="options">parallel options</param>
     /// <exception cref="ArgumentNullException">When reader, keySelector or ValueSelector is null</exception> 
     public static ChannelReader<ChannelGroup<K, V>> GroupBy<K, V, S>(this ChannelReader<S> reader,
                                                                            Func<S, K> keySelector,

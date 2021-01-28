@@ -159,7 +159,6 @@ namespace Amphisbaena.Linq {
     /// </summary>
     /// <param name="reader">initial reader</param>
     /// <param name="other">other readers to concat</param>
-    /// <param name="options">parallel options</param>
     public static ChannelReader<T> Concat<T>(this ChannelReader<T> reader,
                                                   params IEnumerable<T>[] other) =>
       Concat(reader, other, default);

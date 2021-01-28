@@ -1,0 +1,1910 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Amphisbaena</name>
+    </assembly>
+    <members>
+        <member name="T:Amphisbaena.ChannelReaderActor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0,System.Int64},System.Func{``0,System.Int64,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0,System.Int64},System.Func{``0,System.Int64,System.Boolean})">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0,System.Int64},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0,System.Int64})">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderActor.ActForEach``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0})">
+            <summary>
+            Act for each item in the channel
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.ChannelBalancerStrategy">
+            <summary>
+            Channel Balance Strategy
+            </summary>
+        </member>
+        <member name="F:Amphisbaena.ChannelBalancerStrategy.RoundRobin">
+            <summary>
+            Round Robin
+            </summary>
+        </member>
+        <member name="F:Amphisbaena.ChannelBalancerStrategy.Even">
+            <summary>
+            Even
+            </summary>
+        </member>
+        <member name="F:Amphisbaena.ChannelBalancerStrategy.Random">
+            <summary>
+            Random
+            </summary>
+        </member>
+        <member name="F:Amphisbaena.ChannelBalancerStrategy.Default">
+            <summary>
+            Default (Round Robin)
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.ChannelBalancerStrategyExtensions">
+            <summary>
+            Channel Balance Strategy
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelBalancerStrategyExtensions.Create``1(Amphisbaena.ChannelBalancerStrategy,System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Double})">
+            <summary>
+            Create Balancer from enumeration
+            </summary>
+            <param name="strategy">Straregy</param>
+            <param name="actors">Actors to use</param>
+            <param name="load">Actors load (burden)</param>
+            <returns></returns>
+        </member>
+        <member name="T:Amphisbaena.Balancer`1">
+            <summary>
+            Balancer (abstract)
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Balancer`1.Actors">
+            <summary>
+            Available actors
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Balancer`1.Load(`0)">
+            <summary>
+            Load of each actor 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Balancer`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Double})">
+            <summary>
+            Standard constructor
+            </summary>
+            <param name="actors">actors</param>
+            <param name="load">actor's load</param>
+        </member>
+        <member name="M:Amphisbaena.Balancer`1.NextActor">
+            <summary>
+            Next Actor 
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.RoundRobinBalancer`1">
+            <summary>
+            Round Robin Balancer
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.RoundRobinBalancer`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Double})">
+            <summary>
+            Standard Constructor
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.RoundRobinBalancer`1.NextActor">
+            <summary>
+            Next Actor
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.EvenBalancer`1">
+            <summary>
+            Even Balancer
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.EvenBalancer`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Double})">
+            <summary>
+            Standard Constructor
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.EvenBalancer`1.NextActor">
+            <summary>
+            Next Actor
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.RandomBalancer`1">
+            <summary>
+            Random Balancer
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.RandomBalancer`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Func{`0,System.Double})">
+            <summary>
+            Standard Constructor
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.RandomBalancer`1.NextActor">
+            <summary>
+            Next Actor Selector
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderFactory">
+            <summary>
+            Channel Reader Factory
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.Empty``1">
+            <summary>
+            Empty
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.Range(System.Int64,System.Int64,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Range
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.Range(System.Int64,System.Int64)">
+            <summary>
+            Range
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.Range(System.Int64,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Range
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.Range(System.Int64)">
+            <summary>
+            Range
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.ToChannelReader``1(System.Collections.Generic.IEnumerable{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Channel Reader
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.ToChannelReader``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            To Channel Reader
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.ToChannelReader``1(System.Collections.Generic.IAsyncEnumerable{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Channel Reader
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFactory.ToChannelReader``1(System.Collections.Generic.IAsyncEnumerable{``0})">
+            <summary>
+            To Channel Reader
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderFork">
+            <summary>
+            Fork
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Fork``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Func{``0,System.Boolean}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Fork according to conditions
+            </summary>
+            <param name="reader">Initial reader to fork</param>
+            <param name="conditions">Conditions for i-th fork; null stands for always true</param>
+            <param name="options">Parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Fork``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions,System.Func{``0,System.Boolean}[])">
+            <summary>
+            Fork according to conditions
+            </summary>
+            <param name="reader">Initial reader to fork</param>
+            <param name="conditions">Conditions for i-th fork; null stands for always true</param>
+            <param name="options">Parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Fork``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean}[])">
+            <summary>
+            Fork according to conditions
+            </summary>
+            <param name="reader">Initial reader to fork</param>
+            <param name="conditions">Conditions for i-th fork; null stands for always true</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Fork``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Func{``0,System.Boolean}})">
+            <summary>
+            Fork according to conditions
+            </summary>
+            <param name="reader">Initial reader to fork</param>
+            <param name="conditions">Conditions for i-th fork; null stands for always true</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Fork``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Fork according to conditions
+            </summary>
+            <param name="reader">Initial reader to fork</param>
+            <param name="options">Parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Fork``1(System.Threading.Channels.ChannelReader{``0},System.Int32)">
+            <summary>
+            Fork according to conditions
+            </summary>
+            <param name="reader">Initial reader to fork</param>
+            <param name="numberOfForks">Number Of Forks</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Detach``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0}@,System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Detach
+            </summary>
+            <param name="reader">Initial reader to detach from</param>
+            <param name="detached">Detached channel</param>
+            <param name="condition">Condition on detached channel</param>
+            <param name="options">Options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Detach``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0}@,System.Func{``0,System.Boolean})">
+            <summary>
+            Detach
+            </summary>
+            <param name="reader">Initial reader to detach from</param>
+            <param name="detached">Detached channel</param>
+            <param name="condition">Condition on detached channel</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderFork.Detach``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0}@)">
+            <summary>
+            Detach
+            </summary>
+            <param name="reader">Initial reader to detach from</param>
+            <param name="detached">Detached channel</param>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderMerge">
+            <summary>
+            Merge (Attach) Channel Readers
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Merge``1(System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Merge Readers
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Merge``1(System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Merge Readers
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Attach``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Attach 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Attach``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Attach 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Attach``1(System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}},System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Attach 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Attach``1(System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}},System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Attach 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Attach``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Attach 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.Attach``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Attach 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.DetachAttach``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},System.Func{System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Detach, process, Attach back 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderMerge.DetachAttach``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},System.Func{System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Detach, process, Attach back 
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.ChannelParallelOptions">
+            <summary>
+            Channel Parallel Options
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.CreateChannel``1">
+            <summary>
+            Create Channel based on settings
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.CreateBalancer``1(System.Collections.Generic.IEnumerable{System.Threading.Channels.Channel{``0}})">
+            <summary>
+            Create Balancer based on Parallel Options
+            </summary>
+            <param name="actors">Actors to Balance</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.#ctor">
+            <summary>
+            Standard constructor
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.#ctor(System.Threading.CancellationToken)">
+            <summary>
+            Standard constructor
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.Clone">
+            <summary>
+            Clone
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.ChannelParallelOptions.CancellationToken">
+            <summary>
+            Cancellation Token
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.ChannelParallelOptions.DegreeOfParallelism">
+            <summary>
+            Degree Of Parallelism
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.ChannelParallelOptions.Capacity">
+            <summary>
+            Channel Capacity (unbounded, if capacity &lt;= 0) 
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.ChannelParallelOptions.BalancingStrategy">
+            <summary>
+            Balancing Strategy
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.ToString">
+            <summary>
+            To String (for debug only)
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.Equals(Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Equals
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.Equals(System.Object)">
+            <summary>
+            Equals 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.GetHashCode">
+            <summary>
+            HashCode
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelParallelOptions.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Collect Data for serialization
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderPerformer">
+            <summary>
+            Channel Reader Perform
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderPerformer.ForAll``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            For All
+            </summary>
+            <param name="reader">reader to get items from</param>
+            <param name="action">action to perform on each item</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader or action is null</exception>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderPerformer.ForAll``1(System.Threading.Channels.ChannelReader{``0},System.Action{``0})">
+            <summary>
+            For All
+            </summary>
+            <param name="reader">reader to get items from</param>
+            <param name="action">action to perform on each item</param>
+            <exception cref="T:System.ArgumentNullException">When reader or action is null</exception>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderPerformer.ForEach``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            For Each (Parallelized Select) 
+            </summary>
+            <param name="reader">reader to get items from</param>
+            <param name="selector">action to perform on each item</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader or selector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderPerformer.ForEach``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1})">
+            <summary>
+            For Each (Parallelized Select) 
+            </summary>
+            <param name="reader">reader to get items from</param>
+            <param name="selector">action to perform on each item</param>
+            <exception cref="T:System.ArgumentNullException">When reader or selector is null</exception>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderSplit">
+            <summary>
+            Split Channel Reader into several ones
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderSplit.Split``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Split into several readers
+            </summary>
+            <param name="reader">reader to split</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderSplit.Split``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Split into several readers
+            </summary>
+            <param name="reader">reader to split</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderSpread">
+            <summary>
+            Split Channel Reader into several ones
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderSpread.Spread``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Spread into several readers
+            </summary>
+            <param name="reader">reader to spread</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderSpread.Spread``1(System.Threading.Channels.ChannelReader{``0},System.Int32)">
+            <summary>
+            Spread into several readers
+            </summary>
+            <param name="reader">reader to spread</param>
+            <param name="count">number of channels to create</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="T:Amphisbaena.ChannelReaderExtensions">
+            <summary>
+            Await task completions
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderExtensions.WhenAll``1(System.Threading.Channels.ChannelReader{System.Threading.Tasks.Task{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            When All: turn Task&lt;T&gt; into T
+            </summary>
+            <param name="reader">reader to convert</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderExtensions.WhenAll``1(System.Threading.Channels.ChannelReader{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            When All: turn Task&lt;T&gt; into T
+            </summary>
+            <param name="reader">reader to convert</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderExtensions.WhenAll``1(System.Threading.Channels.ChannelReader{System.Threading.Tasks.ValueTask{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            When All turn ValueTask&lt;T&gt; to T
+            </summary>
+            <param name="reader">reader to convert</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderExtensions.WhenAll``1(System.Threading.Channels.ChannelReader{System.Threading.Tasks.ValueTask{``0}})">
+            <summary>
+            When All turn Task&lt;T&gt; into T
+            </summary>
+            <param name="reader">reader to convert</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderExtensions.ToTask``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Task (Stub for awaiting)
+            </summary>
+            <param name="reader">reader to convert</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.ChannelReaderExtensions.ToTask``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To Task (Stub for awaiting)
+            </summary>
+            <param name="reader">reader to convert</param>
+        </member>
+        <member name="T:Amphisbaena.Linq.ChannelReaderExtensions">
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+            <summary>
+            Channel Reader Extensions
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Aggregate``3(System.Threading.Channels.ChannelReader{``2},``1,System.Func{``1,``2,``1},System.Func{``1,``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Aggregate
+            </summary>
+            <param name="accumulate">Accumulate function</param>
+            <param name="options">Options</param>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="seed">Initial value for accumulation</param>
+            <param name="result">Final accumulated value conversion function</param>
+            <exception cref="T:System.ArgumentNullException">When reader or accumulate is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Aggregate``3(System.Threading.Channels.ChannelReader{``2},``1,System.Func{``1,``2,``1},System.Func{``1,``0})">
+            <summary>
+            Aggregate
+            </summary>
+            <param name="accumulate">Accumulate function</param>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="seed">Initial value for accumulation</param>
+            <param name="result">Final accumulated value conversion function</param>
+            <exception cref="T:System.ArgumentNullException">When reader or accumulate is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Aggregate``2(System.Threading.Channels.ChannelReader{``1},``0,System.Func{``0,``1,``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Aggregate
+            </summary>
+            <param name="accumulate">Accumulate function</param>
+            <param name="options">Options</param>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="seed">Initial value for accumulation</param>
+            <exception cref="T:System.ArgumentNullException">When reader or accumulate is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Aggregate``2(System.Threading.Channels.ChannelReader{``1},``0,System.Func{``0,``1,``0})">
+            <summary>
+            Aggregate
+            </summary>
+            <param name="accumulate">Accumulate function</param>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="seed">Initial value for accumulation</param>
+            <exception cref="T:System.ArgumentNullException">When reader or accumulate is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Aggregate``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``0,``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Aggregate
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="accumulate">Accumulate function</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader or accumulate is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Aggregate``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``0,``0})">
+            <summary>
+            Aggregate
+            </summary>
+            <param name="accumulate">Accumulate function</param>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <exception cref="T:System.ArgumentNullException">When reader or accumulate is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.All``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            All
+            </summary>
+            <param name="reader">Channel Reader to test</param>
+            <param name="condition">Condition to test</param>
+            <param name="options">Parallel Options to use</param>
+            <returns>true, if all items fit condition</returns>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.ArgumentNullException">When condition is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.All``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            All
+            </summary>
+            <param name="reader">Channel Reader to test</param>
+            <param name="condition">Condition to test</param>
+            <returns>true, if all items fit condition</returns>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.ArgumentNullException">When condition is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Any``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Any
+            </summary>
+            <param name="reader">Channel Reader to test</param>
+            <param name="condition">Condition to test (test all on default)</param>
+            <param name="options">Parallel Options to use</param>
+            <returns>true, if any item fit condition</returns>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Any``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Any
+            </summary>
+            <param name="reader">Channel Reader to test</param>
+            <param name="condition">Condition to test (test all on default)</param>
+            <returns>true, if any item fit condition</returns>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Any``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Any
+            </summary>
+            <param name="reader">Channel Reader to test</param>
+            <param name="options">Parallel Options to use</param>
+            <returns>true, if any item fit condition</returns>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Any``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Any
+            </summary>
+            <param name="reader">Channel Reader to test</param>
+            <returns>true, if any item fit condition</returns>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.DefaultIfEmpty``1(System.Threading.Channels.ChannelReader{``0},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Default If Empty
+            </summary>
+            <param name="reader">Channel Reader to Test</param>
+            <param name="defaultValue">Default Value when Reader is Empty</param>
+            <param name="options">Parallel Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.DefaultIfEmpty``1(System.Threading.Channels.ChannelReader{``0},``0)">
+            <summary>
+            Default If Empty
+            </summary>
+            <param name="reader">Channel Reader to Test</param>
+            <param name="defaultValue">Default Value when Reader is Empty</param>
+            <exception cref="T:System.ArgumentNullException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.DefaultIfEmpty``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Default If Empty
+            </summary>
+            <param name="reader">Channel Reader to Test</param>
+            <param name="options">Parallel Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.DefaultIfEmpty``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Default If Empty
+            </summary>
+            <param name="reader">Channel Reader to Test</param>
+            <exception cref="T:System.ArgumentNullException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Cast``2(System.Threading.Channels.ChannelReader{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Cast 
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.InvalidCastException">When an item can't be cast</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Cast``2(System.Threading.Channels.ChannelReader{``1})">
+            <summary>
+            Cast 
+            </summary>
+            <param name="reader">initial reader</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.InvalidCastException">When an item can't be cast</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.OfType``2(System.Threading.Channels.ChannelReader{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Of Type 
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.OfType``2(System.Threading.Channels.ChannelReader{``1})">
+            <summary>
+            OfType 
+            </summary>
+            <param name="reader">initial reader</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions,System.Threading.Channels.ChannelReader{``0}[])">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0}[])">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions,System.Collections.Generic.IEnumerable{``0}[])">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Concat``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{``0}[])">
+            <summary>
+            Concat
+            </summary>
+            <param name="reader">initial reader</param>
+            <param name="other">other readers to concat</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Count``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Count 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Count``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Count 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Count``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Count 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Count``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Count 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.CountFraction``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Count Fraction 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.CountFraction``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Count Fraction 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Distinct``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Distinct
+            </summary>
+            <param name="reader">reader to get values from</param>
+            <param name="comparer">comparer two values for equality</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">when reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Distinct``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Distinct
+            </summary>
+            <param name="reader">reader to get values from</param>
+            <param name="comparer">comparer two values for equality</param>
+            <exception cref="T:System.ArgumentNullException">when reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Distinct``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Distinct
+            </summary>
+            <param name="reader">reader to get values from</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">when reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Distinct``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Distinct
+            </summary>
+            <param name="reader">reader to get values from</param>
+            <exception cref="T:System.ArgumentNullException">when reader is null</exception> 
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToAsyncEnumerable``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To AsyncEnumerable 
+            </summary>
+            <param name="reader">reader to be converted into IAsyncEnumerable</param>
+            <param name="options">Parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToAsyncEnumerable``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To AsyncEnumerable 
+            </summary>
+            <param name="reader">reader to be converted into IAsyncEnumerable</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToEnumerable``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Enumerable 
+            </summary>
+            <param name="reader">reader to be converted into IAsyncEnumerable</param>
+            <param name="options">Parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToEnumerable``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To Enumerable 
+            </summary>
+            <param name="reader">reader to be converted into IAsyncEnumerable</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},``0)">
+            <summary>
+            First Or default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},``0)">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.FirstOrDefault``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.First``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            First Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.First``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            First
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.First``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            First
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.First``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            First
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},``0)">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},``0)">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.LastOrDefault``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Last Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Last``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Last
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Last``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Last
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Last``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Last
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Last``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Last
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},``0)">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},``0)">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SingleOrDefault``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Single Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Single``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Single
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Single``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Single
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Single``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Single
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Single``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Single
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ElementAtOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Int64,``0,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Element At Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ElementAtOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Int64,``0)">
+            <summary>
+            Element At Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ElementAtOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Int64,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Element At Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ElementAtOrDefault``1(System.Threading.Channels.ChannelReader{``0},System.Int64)">
+            <summary>
+            Element At Or Default
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ElementAt``1(System.Threading.Channels.ChannelReader{``0},System.Int64,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Element At 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ElementAt``1(System.Threading.Channels.ChannelReader{``0},System.Int64)">
+            <summary>
+            Element At
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``3(System.Threading.Channels.ChannelReader{``2},System.Func{``2,``0},System.Func{``2,``1},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="keyComparer">Key Comparer</param>
+            <param name="valueSelector">Value Selector</param>
+            <param name="options">Parallel Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader, keySelector or ValueSelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``3(System.Threading.Channels.ChannelReader{``2},System.Func{``2,``0},System.Func{``2,``1},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="keyComparer">Key Comparer</param>
+            <param name="valueSelector">Value Selector</param>
+            <exception cref="T:System.ArgumentNullException">When reader, keySelector or ValueSelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``3(System.Threading.Channels.ChannelReader{``2},System.Func{``2,``0},System.Func{``2,``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="valueSelector">Value Selector</param>
+            <param name="options">parallel options</param>
+            <exception cref="T:System.ArgumentNullException">When reader, keySelector or ValueSelector is null</exception> 
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``3(System.Threading.Channels.ChannelReader{``2},System.Func{``2,``0},System.Func{``2,``1})">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="valueSelector">Value Selector</param>
+            <exception cref="T:System.ArgumentNullException">When reader, keySelector or ValueSelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,``0},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="keyComparer">Key Comparer</param>
+            <param name="options">Parallel Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader or keySelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="keyComparer">Key Comparer</param>
+            <exception cref="T:System.ArgumentNullException">When reader or keySelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <param name="options">Parallel Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader or keySelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupBy``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,``0})">
+            <summary>
+            Group By 
+            </summary>
+            <param name="reader">reader which items to group</param>
+            <param name="keySelector">Key selector</param>
+            <exception cref="T:System.ArgumentNullException">When reader or keySelector is null</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <typeparam name="V">Value</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="valueSelector">Value from source</param>
+            <param name="comparer">Keys comparer</param>
+            <param name="options">Parallel options</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <typeparam name="V">Value</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="valueSelector">Value from source</param>
+            <param name="comparer">Keys comparer</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <typeparam name="V">Value</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="valueSelector">Value from source</param>
+            <param name="options">Parallel options</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2})">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <typeparam name="V">Value</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="valueSelector">Value from source</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source Type</typeparam>
+            <typeparam name="K">Key Type</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="comparer">Keys comparer</param>
+            <param name="options">Parallel options</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="comparer">Keys comparer</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <param name="options">Parallel options</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.GroupByAdjacent``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1})">
+            <summary>
+            Group By adjacent items only
+            </summary>
+            <typeparam name="S">Source</typeparam>
+            <typeparam name="K">Key</typeparam>
+            <param name="reader">reader to group</param>
+            <param name="keySelector">Key from source</param>
+            <returns>Groups of adjacent items</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToListAsync``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To List (async)
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToListAsync``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To List (async)
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToArrayAsync``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Array (async)
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToArrayAsync``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To Array (async)
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToHashSet``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To HashSet 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToHashSet``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            To HashSet 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToHashSet``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To HashSet 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToHashSet``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To HashSet 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToDictionaryAsync``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Dictionary
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToDictionaryAsync``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            To Dictionary
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToDictionaryAsync``3(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Func{``0,``2})">
+            <summary>
+            To Dictionary
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToDictionaryAsync``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Dictionary
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToDictionaryAsync``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+            <summary>
+            To Dictionary
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToDictionaryAsync``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1})">
+            <summary>
+            To Dictionary
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <param name="comparer">Comparer to use</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1})">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="comparer">Comparer to use</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Min``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Min
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1},System.Collections.Generic.IComparer{``1})">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <param name="comparer">Comparer to use</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``2(System.Threading.Channels.ChannelReader{``0},System.Func{``0,``1})">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="selector">Selector to find maximum</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="comparer">Comparer to use</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null; when comparer is null and T is not comparable</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <param name="options">Options</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Max``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            Max
+            </summary>
+            <param name="reader">Initial ChannelReader to aggregate</param>
+            <exception cref="T:System.ArgumentNullException">When reader is null</exception>
+            <exception cref="T:System.InvalidOperationException">When reader is empty</exception>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Select``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,System.Int64,``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Select 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Select``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,System.Int64,``0})">
+            <summary>
+            Select 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Select``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Select 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Select``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,``0})">
+            <summary>
+            Select 
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SelectMany``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,System.Int64,System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Select Many
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SelectMany``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,System.Int64,System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Select Many
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SelectMany``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,System.Threading.Channels.ChannelReader{``0}},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Select Many
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SelectMany``2(System.Threading.Channels.ChannelReader{``1},System.Func{``1,System.Threading.Channels.ChannelReader{``0}})">
+            <summary>
+            Select Many
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">(Other) reader to compare with</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Parallel Options</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">(Other) reader to compare with</param>
+            <param name="comparer">Comparer to use</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">(Other) reader to compare with</param>
+            <param name="options">Parallel Options</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">(Other) reader to compare with</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IAsyncEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Parallel Options</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IAsyncEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <param name="comparer">Comparer to use</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IAsyncEnumerable{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <param name="options">Parallel Options</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IAsyncEnumerable{``0})">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <param name="comparer">Comparer to use</param>
+            <param name="options">Parallel Options</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <param name="comparer">Comparer to use</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <param name="options">Parallel Options</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SequenceEquals``1(System.Threading.Channels.ChannelReader{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            If reader and other are equal
+            </summary>
+            <param name="reader">Reader to compare</param>
+            <param name="other">Sequence to compare with</param>
+            <returns>true, if readers have same items, order matters</returns>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Skip``1(System.Threading.Channels.ChannelReader{``0},System.Int64,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Skip
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Skip``1(System.Threading.Channels.ChannelReader{``0},System.Int64)">
+            <summary>
+            Skip
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SkipWhile``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            SkipWhile
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.SkipWhile``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            SkipWhile
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Take``1(System.Threading.Channels.ChannelReader{``0},System.Int64,Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Take
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Take``1(System.Threading.Channels.ChannelReader{``0},System.Int64)">
+            <summary>
+            Take
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.TakeWhile``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            TakeWhile
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.TakeWhile``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            TakeWhile
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Statistics``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Double},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Statistics
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Statistics``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Double})">
+            <summary>
+            To Statistics
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Statistics``1(System.Threading.Channels.ChannelReader{``0},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            To Statistics
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Statistics``1(System.Threading.Channels.ChannelReader{``0})">
+            <summary>
+            To Statistics
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToBatch``1(System.Threading.Channels.ChannelReader{``0},System.Func{System.Collections.Generic.ICollection{``0},``0,System.Int64,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Batch grouping
+            </summary>
+            <param name="reader">reader to batch</param>
+            <param name="addToBatch">should item be added to current batch</param>
+            <param name="options">parallel options</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.ToBatch``1(System.Threading.Channels.ChannelReader{``0},System.Func{System.Collections.Generic.ICollection{``0},``0,System.Int64,System.Boolean})">
+            <summary>
+            Batch grouping
+            </summary>
+            <param name="reader">reader to batch</param>
+            <param name="addToBatch">should item be added to current batch</param>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Where``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Int64,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Where
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Where``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Int64,System.Boolean})">
+            <summary>
+            Where
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Where``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean},Amphisbaena.ChannelParallelOptions)">
+            <summary>
+            Where
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelReaderExtensions.Where``1(System.Threading.Channels.ChannelReader{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Where
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.Linq.ChannelGroup`2">
+            <summary>
+            Channel Group
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.ChannelGroup`2.Key">
+            <summary>
+            Key
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.ChannelGroup`2.Reader">
+            <summary>
+            Reader for Values
+            </summary>
+        </member>
+        <member name="M:Amphisbaena.Linq.ChannelGroup`2.op_Implicit(Amphisbaena.Linq.ChannelGroup{`0,`1})~System.Threading.Channels.ChannelReader{`1}">
+            <summary>
+            Reader from group
+            </summary>
+        </member>
+        <member name="T:Amphisbaena.Linq.Statistics`1">
+            <summary>
+            Statistics Info
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.CountRegular">
+            <summary>
+            Count (regular values only; NaN, Inf excluded)
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Count">
+            <summary>
+            Count (NaN excluded)
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.CountNaN">
+            <summary>
+            Count NaN
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.CountPositiveInf">
+            <summary>
+            Count +Inf
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.CountNegativeInf">
+            <summary>
+            Count -Inf
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.CountInf">
+            <summary>
+            Count Inf (+Inf, -Inf)
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.CountTotal">
+            <summary>
+            Count Total
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Sum">
+            <summary>
+            Sum
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Sum2">
+            <summary>
+            Sum of Squares
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Sum3">
+            <summary>
+            Sum of Cubes
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Sum4">
+            <summary>
+            Sums of Fourth Powers
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.MinIndex">
+            <summary>
+            Min Index
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Min">
+            <summary>
+            Min
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.ArgMin">
+            <summary>
+            Argmin
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.MaxIndex">
+            <summary>
+            Max Index
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Max">
+            <summary>
+            Max
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.ArgMax">
+            <summary>
+            Argmax
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Average">
+            <summary>
+            Average
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Variance">
+            <summary>
+            Variance
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.StandardError">
+            <summary>
+            Standard Error
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Skew">
+            <summary>
+            Skew
+            </summary>
+        </member>
+        <member name="P:Amphisbaena.Linq.Statistics`1.Kurtosis">
+            <summary>
+            Kurtosis
+            </summary>
+        </member>
+    </members>
+</doc>
