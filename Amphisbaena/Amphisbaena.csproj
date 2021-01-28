@@ -17,12 +17,13 @@ Eager Async LINQ to Objects</Description>
     <DelaySign>false</DelaySign>
     <PackageTags>Linq Channel .Net 5</PackageTags>
     <ApplicationIcon>Amphisbaena256x256.ico</ApplicationIcon>
+    <Version>1.0.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
-    <DocumentationFile>C:\Works\CS\Amphisbaena\Amphisbaena\Amphisbaena.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
