@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -89,6 +90,7 @@ namespace Amphisbaena {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
+        /*
         async Task Executor() {
           await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
             T target = selector(item);
@@ -97,12 +99,34 @@ namespace Amphisbaena {
           }
         }
 
-        var executors = Enumerable
-          .Range(0, op.DegreeOfParallelism)
-          .Select(_x => Executor())
-          .ToArray();
+        Task[] executors = new Task[op.DegreeOfParallelism];
+
+        for (int i = 0; i < executors.Length; ++i)
+          executors[i] = Executor();
+
+        //var executors = Enumerable
+        //  .Range(0, op.DegreeOfParallelism)
+        //  .Select(_x => Executor())
+        //  .ToArray();
 
         await Task.WhenAll(executors).ConfigureAwait(false);
+        */
+
+        HashSet<Task> actors = new HashSet<Task>();
+
+        await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
+          if (actors.Count < op.DegreeOfParallelism) {
+            actors.Add(Task.Run(async () => {
+              T target = selector(item);
+
+              await result.Writer.WriteAsync(target, op.CancellationToken).ConfigureAwait(false);
+            }));
+          }
+          else 
+            actors.Remove(await Task.WhenAny(actors));
+        }
+
+        await Task.WhenAll(actors).ConfigureAwait(false);
 
         result.Writer.TryComplete();
       }, op.CancellationToken);

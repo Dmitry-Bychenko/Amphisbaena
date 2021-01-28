@@ -32,7 +32,9 @@ namespace Amphisbaena {
         return Channel.CreateUnbounded<T>();
       else {
         BoundedChannelOptions ops = new BoundedChannelOptions(Capacity) {
-          FullMode = BoundedChannelFullMode.Wait
+          FullMode = BoundedChannelFullMode.Wait,
+          SingleReader = false,
+          SingleWriter = false,
         };
 
         return Channel.CreateBounded<T>(ops);
