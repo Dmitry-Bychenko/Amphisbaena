@@ -17,7 +17,8 @@ Eager Async LINQ to Objects</Description>
     <DelaySign>false</DelaySign>
     <PackageTags>Linq Channel .Net 5</PackageTags>
     <ApplicationIcon>Amphisbaena256x256.ico</ApplicationIcon>
-    <Version>1.0.0.0</Version>
+    <Version>1.0.0.1</Version>
+    <PackageIcon>Amphisbaena256x256.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,5 +27,12 @@ Eager Async LINQ to Objects</Description>
     <DocumentationFile></DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Images\Amphisbaena256x256.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
