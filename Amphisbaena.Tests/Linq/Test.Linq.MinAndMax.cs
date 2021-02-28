@@ -45,5 +45,14 @@ namespace Amphisbaena.Tests.Linq {
       Assert.AreEqual(data.Max(), actual);
     }
 
+    [TestMethod("Extremum")]
+    public async Task TestExtremum() {
+      var actual = await data
+        .ToChannelReader()
+        .Extremum(item => item);
+
+      Assert.AreEqual(actual.Min, data.Min());
+      Assert.AreEqual(actual.Max, data.Max());
+    }
   }
 }
