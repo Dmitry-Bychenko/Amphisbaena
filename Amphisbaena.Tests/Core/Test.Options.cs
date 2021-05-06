@@ -12,7 +12,7 @@ namespace Amphisbaena.Tests.Core {
 
     [TestMethod("Create Balancer")]
     public void CreateBalancer() {
-      ChannelParallelOptions op = new ChannelParallelOptions();
+      ChannelParallelOptions op = new ();
 
       Assert.AreEqual(Environment.ProcessorCount, op.DegreeOfParallelism);
     }

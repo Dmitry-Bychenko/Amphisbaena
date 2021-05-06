@@ -34,7 +34,7 @@ namespace Amphisbaena {
       if (Capacity <= 0)
         return Channel.CreateUnbounded<T>();
       else {
-        BoundedChannelOptions ops = new BoundedChannelOptions(Capacity) {
+        BoundedChannelOptions ops = new (Capacity) {
           FullMode = BoundedChannelFullMode.Wait,
           SingleReader = false,
           SingleWriter = false,
@@ -83,7 +83,7 @@ namespace Amphisbaena {
     /// <summary>
     /// Clone
     /// </summary>
-    public ChannelParallelOptions Clone() => new ChannelParallelOptions() {
+    public ChannelParallelOptions Clone() => new () {
       CancellationToken = this.CancellationToken,
       m_DegreeOfParallelism = this.m_DegreeOfParallelism,
       m_Capacity = this.m_Capacity,

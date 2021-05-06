@@ -289,7 +289,7 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      Statistics<T> result = new Statistics<T>();
+      Statistics<T> result = new ();
 
       long index = -1;
 

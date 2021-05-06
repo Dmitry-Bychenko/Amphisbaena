@@ -102,7 +102,7 @@ namespace Amphisbaena.Linq {
       Channel<ChannelGroup<K, V>> result = op.CreateChannel<ChannelGroup<K, V>>();
 
       Task.Run(async () => {
-        Dictionary<K, ChannelGroup<K, V>> dict = new Dictionary<K, ChannelGroup<K, V>>(keyComparer);
+        Dictionary<K, ChannelGroup<K, V>> dict = new (keyComparer);
 
         await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           K key = keySelector(item);
@@ -111,7 +111,7 @@ namespace Amphisbaena.Linq {
           if (dict.TryGetValue(key, out var channel))
             await channel.Channel.Writer.WriteAsync(value, op.CancellationToken).ConfigureAwait(false);
           else {
-            ChannelGroup<K, V> group = new ChannelGroup<K, V>(key, op);
+            ChannelGroup<K, V> group = new (key, op);
 
             dict.Add(key, group);
 

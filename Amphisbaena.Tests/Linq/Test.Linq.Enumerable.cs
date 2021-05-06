@@ -20,9 +20,9 @@ namespace Amphisbaena.Tests.Linq {
   public sealed class EnumerableTest {
     [TestMethod("To IAsyncEnumerable")]
     public async Task AsyncEnumerable() {
-      int[] data = new int[] { 1, 2, 3, 4 };
+      int[] data = new [] { 1, 2, 3, 4 };
 
-      List<int> result = new List<int>();
+      List<int> result = new ();
 
       var q = data
         .ToChannelReader()

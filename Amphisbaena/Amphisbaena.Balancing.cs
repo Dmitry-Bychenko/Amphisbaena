@@ -222,10 +222,10 @@ namespace Amphisbaena {
   public sealed class RandomBalancer<T> : Balancer<T> {
     #region Private Data
 
-    private static readonly ThreadLocal<Random> s_Random = new ThreadLocal<Random>(() => {
+    private static readonly ThreadLocal<Random> s_Random = new (() => {
       int seed;
 
-      using (RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider()) {
+      using (RNGCryptoServiceProvider provider = new ()) {
         byte[] seedData = new byte[sizeof(int)];
 
         provider.GetBytes(seedData);

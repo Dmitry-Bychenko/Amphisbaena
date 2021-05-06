@@ -63,11 +63,11 @@ namespace Amphisbaena.Tests.Core {
         .Select(index => index)
         .ToArray();
 
-      List<int> result = new List<int>();
+      List<int> result = new ();
 
       int bufferSize = 7;
 
-      using CancellationTokenSource cts = new CancellationTokenSource();
+      using CancellationTokenSource cts = new ();
 
       var token = cts.Token;
 

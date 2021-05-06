@@ -31,7 +31,7 @@ namespace Amphisbaena.Tests.Core {
       long expected = data
         .Sum(item => item * item);
 
-      ConcurrentDictionary<long, long> dict = new ConcurrentDictionary<long, long>();
+      ConcurrentDictionary<long, long> dict = new ();
 
       await data
         .ToChannelReader()

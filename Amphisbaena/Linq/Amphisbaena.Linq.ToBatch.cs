@@ -40,7 +40,7 @@ namespace Amphisbaena.Linq {
 
       Task.Run(async () => {
         long index = -1;
-        List<T> batch = new List<T>();
+        List<T> batch = new ();
 
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           index += 1;

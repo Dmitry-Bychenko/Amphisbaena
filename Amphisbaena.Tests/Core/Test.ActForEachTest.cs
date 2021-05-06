@@ -18,7 +18,7 @@ namespace Amphisbaena.Tests.Core {
         .Select(i => i)
         .ToArray();
 
-      ConcurrentQueue<int> result = new ConcurrentQueue<int>();
+      ConcurrentQueue<int> result = new ();
 
       await data
         .ToChannelReader()

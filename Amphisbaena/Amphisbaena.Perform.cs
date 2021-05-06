@@ -101,7 +101,7 @@ namespace Amphisbaena {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
-        HashSet<Task> actors = new HashSet<Task>();
+        HashSet<Task> actors = new ();
 
         await foreach (S item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           while (actors.Count >= op.DegreeOfParallelism)

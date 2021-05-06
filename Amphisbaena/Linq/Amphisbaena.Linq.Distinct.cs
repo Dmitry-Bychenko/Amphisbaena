@@ -40,7 +40,7 @@ namespace Amphisbaena.Linq {
       Channel<T> result = op.CreateChannel<T>();
 
       Task.Run(async () => {
-        HashSet<T> unique = new HashSet<T>(comparer);
+        HashSet<T> unique = new (comparer);
 
         await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false)) {
           if (unique.Add(item))

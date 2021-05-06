@@ -29,7 +29,7 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      List<T> result = new List<T>();
+      List<T> result = new ();
 
       await foreach (T item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
         result.Add(item);
@@ -56,7 +56,7 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      List<T> result = new List<T>();
+      List<T> result = new ();
 
       await foreach (T item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
         result.Add(item);
@@ -87,7 +87,7 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      HashSet<T> result = new HashSet<T>(comparer);
+      HashSet<T> result = new (comparer);
 
       await foreach (T item in reader.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
         result.Add(item);
@@ -139,7 +139,7 @@ namespace Amphisbaena.Linq {
 
       op.CancellationToken.ThrowIfCancellationRequested();
 
-      Dictionary<K, V> result = new Dictionary<K, V>(comparer);
+      Dictionary<K, V> result = new (comparer);
 
       await foreach (T item in source.ReadAllAsync(op.CancellationToken).ConfigureAwait(false))
         result.Add(key(item), value(item));
